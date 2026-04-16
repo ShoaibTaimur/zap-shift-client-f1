@@ -377,14 +377,14 @@ const Footer18 = ({ className }: Footer18Props) => {
         <nav className="flex flex-col gap-9 lg:flex-row">
           <div className="flex w-full flex-col gap-9 lg:w-1/4">
             {/* Logo */}
-            <a className="flex items-center lg:justify-center">
+            <a href="/" className="flex items-end lg:justify-center">
               <img
                 src={logo}
                 alt="Shadcnblocks"
                 title="Shadcnblocks"
                 className="md:h-20"
               />
-              <p className="font-extrabold text-[20px] md:text-[30px]">ZapShift</p>
+              <p className="font-extrabold -ms-2 md:text-[30px]">ZapShift</p>
             </a>
             <div className="flex w-full flex-col gap-6">
               <ul className="flex w-full items-center gap-0.5">

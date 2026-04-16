@@ -35,15 +35,15 @@ const Navbar5 = ({ className }: Navbar5Props) => {
     <section className={cn("py-4", className)}>
       <div className="container">
         <nav className="flex items-center justify-between">
-          <a
-            className="flex items-center gap-2"
+          <a href="/"
+            className="flex items-end gap-2"
           >
             <img
               src={logo}
               className="max-h-8"
               alt="Shadcn UI Navbar"
             />
-            <span className="text-lg font-semibold tracking-tighter">
+            <span className="text-lg -mx-2.5 font-extrabold tracking-tighter">
               ZapShift
             </span>
           </a>
@@ -92,23 +92,23 @@ const Navbar5 = ({ className }: Navbar5Props) => {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
-            <Button variant="outline">Sign in</Button>
-            <Button>Login</Button>
+            <Button className="px-5" variant="outline">Sign in</Button>
+            <Button className="px-5" variant="signUp">Be a Rider</Button>
           </div>
           <Sheet>
             <SheetTrigger className="lg:hidden" render={<Button variant="outline" size="icon" />}><MenuIcon className="h-4 w-4" /></SheetTrigger>
             <SheetContent side="top" className="max-h-screen overflow-auto">
               <SheetHeader>
                 <SheetTitle>
-                  <a
-                    className="flex items-center gap-2"
+                  <a href="/"
+                    className="flex items-end gap-2"
                   >
                     <img
                       src={logo}
                       className="max-h-8"
                       alt="Shadcn UI Navbar"
                     />
-                    <span className="text-lg font-semibold tracking-tighter">
+                    <span className="text-lg font-extrabold tracking-tighter">
                       ZapShift
                     </span>
                   </a>
@@ -136,7 +136,7 @@ const Navbar5 = ({ className }: Navbar5Props) => {
                 </div>
                 <div className="mt-6 flex flex-col gap-4">
                   <Button variant="outline">Sign in</Button>
-                  <Button>Login</Button>
+                  <Button variant="signUp">Be a rider</Button>
                 </div>
               </div>
             </SheetContent>
