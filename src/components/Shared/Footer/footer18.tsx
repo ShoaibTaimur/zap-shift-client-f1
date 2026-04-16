@@ -372,7 +372,7 @@ interface Footer18Props {
 
 const Footer18 = ({ className }: Footer18Props) => {
   return (
-    <section className={cn("py-20", className)}>
+    <section className={cn("py-4", className)}>
       <footer className="container">
         <nav className="flex flex-col gap-9 lg:flex-row">
           <div className="flex w-full flex-col gap-9 lg:w-1/4">
@@ -382,9 +382,9 @@ const Footer18 = ({ className }: Footer18Props) => {
                 src={logo}
                 alt="Shadcnblocks"
                 title="Shadcnblocks"
-                className="md:h-20"
+                className="md:h-13"
               />
-              <p className="font-extrabold -ms-2 md:text-[30px]">ZapShift</p>
+              <p className="font-extrabold -ms-2 md:text-[20px]">ZapShift</p>
             </a>
             <div className="flex w-full flex-col gap-6">
               <ul className="flex w-full items-center gap-0.5">
