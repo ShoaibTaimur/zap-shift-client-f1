@@ -1,7 +1,13 @@
+import { Outlet } from "react-router"
+import Footer from "./components/Shared/Footer/Footer"
+import Header from "./components/Shared/Header/Header"
+
 function App() {
   return (
     <div>
-      <p>Welcome to the project</p>
+      <Header />
+      <Outlet />
+      <Footer />
     </div>
   )
 }
