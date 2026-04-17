@@ -1,6 +1,5 @@
 "use client";
 import logo from "../../../../Resources/assets/logo.png"
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ArrowRight,
   ChevronDown,
@@ -8,8 +7,6 @@ import {
   Languages,
 } from "lucide-react";
 import { FaFacebookF, FaGithub, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
-import { Controller, useForm } from "react-hook-form";
-import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -21,45 +18,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Field, FieldLabel } from "@/components/ui/field";
-import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
-interface LanguageOption {
-  label: string;
-  description: string;
-  link: string;
-}
-
-interface CookiesOption {
-  title: string;
-  description: string;
-  id: string;
-}
 
 interface PrivacyDialog {
   trigger: string;
   title: string;
   text: string;
 }
-
-interface LanguagesSelectProps {
-  languages: Array<LanguageOption>;
-}
-
 
 const SOCIAL_LINKS = [
   {
@@ -80,83 +45,8 @@ const SOCIAL_LINKS = [
   },
 ];
 
-const LANGUAGES: Array<LanguageOption> = [
-  {
-    label: "English",
-    description: "English (US)",
-    link: "#",
-  },
-  {
-    label: "Français (France)",
-    description: "French",
-    link: "#",
-  },
-  {
-    label: "Deutsch",
-    description: "German",
-    link: "#",
-  },
-  {
-    label: "日本語",
-    description: "Japanese",
-    link: "#",
-  },
-  {
-    label: "한국어",
-    description: "Korean",
-    link: "#",
-  },
-];
-
-const COOKIES_OPTIONS: Array<CookiesOption> = [
-  {
-    id: "1",
-    title: "Essential for functionality",
-    description: "Necessary for site functionality. Always enabled.",
-  },
-  {
-    id: "2",
-    title: "Functional",
-    description: "Stores preferences and enables enhanced features.",
-  },
-  {
-    id: "3",
-    title: "Analytics",
-    description: "Tracks usage to enhance your experience.",
-  },
-  {
-    id: "4",
-    title: "Marketing",
-    description: "Enables personalized advertising.",
-  },
-];
 
 const NAVIGATION = [
-  {
-    title: "About",
-    links: [
-      {
-        name: "Our Story",
-        href: "#",
-      },
-      {
-        name: "Join Us",
-        href: "#",
-      },
-      {
-        name: "Security Info",
-        href: "#",
-      },
-      {
-        name: "System Status",
-        href: "#",
-      },
-      {
-        name: "Legal & Privacy",
-        href: "#",
-      },
-    ],
-  },
   {
     title: "Get Started",
     links: [
@@ -173,57 +63,7 @@ const NAVIGATION = [
         href: "#",
       },
     ],
-  },
-  {
-    title: "Learn More",
-    links: [
-      {
-        name: "Support Center",
-        href: "#",
-      },
-      {
-        name: "Pricing Plans",
-        href: "#",
-      },
-      {
-        name: "Articles",
-        href: "#",
-      },
-      {
-        name: "User Groups",
-        href: "#",
-      },
-      {
-        name: "App Integrations",
-        href: "#",
-      },
-      {
-        name: "Design Resources",
-        href: "#",
-      },
-      {
-        name: "Partners Program",
-        href: "#",
-      },
-    ],
-  },
-  {
-    title: "Solutions for",
-    links: [
-      {
-        name: "Large Enterprises",
-        href: "#",
-      },
-      {
-        name: "Small Businesses",
-        href: "#",
-      },
-      {
-        name: "Individual Users",
-        href: "#",
-      },
-    ],
-  },
+  }
 ];
 
 const PRIVACY_DIALOG: PrivacyDialog = {
@@ -239,114 +79,6 @@ const PRIVACY_DIALOG: PrivacyDialog = {
     you may still see ads about our app, but they won't be
     as personalized.
   `,
-};
-
-const FormSchema = z.object({
-  cookies: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "",
-  }),
-});
-
-interface CookiesPanelProps {
-  cookiesOptions: Array<CookiesOption>;
-}
-const CookiesPanel = ({ cookiesOptions }: CookiesPanelProps) => {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      cookies: ["1"],
-    },
-  });
-
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data.cookies);
-  }
-  return (
-    <Drawer>
-      <DrawerTrigger asChild>
-        <Button variant="outline">
-          <Cookie className="size-4" />
-          Cookie settings
-        </Button>
-      </DrawerTrigger>
-      <DrawerContent>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="container overflow-auto pb-4"
-        >
-          <DrawerHeader>
-            <div className="flex w-full flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-              <DrawerTitle className="text-sm leading-normal font-normal">
-                We use cookies to enhance your experience. Check our{" "}
-                <Button
-                  variant="link"
-                  className="px-0 text-sm leading-normal font-normal underline"
-                >
-                  Cookie Notice
-                </Button>{" "}
-                for more details.
-              </DrawerTitle>
-              <DrawerClose asChild className="w-full md:w-fit">
-                <Button type="submit">Done</Button>
-              </DrawerClose>
-            </div>
-          </DrawerHeader>
-          <Controller
-            control={form.control}
-            name="cookies"
-            render={({ field }) => (
-              <Field className="grid gap-5 pt-4 lg:grid-cols-4">
-                {cookiesOptions.map((opt) => (
-                  <Field
-                    key={opt.id}
-                    className="flex w-full items-start justify-between rounded-xl border bg-background p-3"
-                  >
-                    <FieldLabel className="flex w-full flex-col gap-1">
-                      <p className="text-sm leading-normal font-medium text-foreground">
-                        {opt.title}
-                      </p>
-                      <p className="text-sm leading-normal text-muted-foreground">
-                        {opt.description}
-                      </p>
-                    </FieldLabel>
-                    <Switch
-                      checked={field.value?.includes(opt.id)}
-                      disabled={opt.id == "1"}
-                      onCheckedChange={(checked) => {
-                        return checked
-                          ? field.onChange([...field.value, opt.id])
-                          : field.onChange(
-                              field.value?.filter((value) => value !== opt.id),
-                            );
-                      }}
-                    />
-                  </Field>
-                ))}
-              </Field>
-            )}
-          />
-        </form>
-      </DrawerContent>
-    </Drawer>
-  );
-};
-
-const LanguagesSelect = ({ languages }: LanguagesSelectProps) => {
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger render={<Button variant="outline" />}><Languages />English
-                    <ChevronDown /></DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="start">
-        {languages.map((lang, i) => (
-          <DropdownMenuItem key={`footer-lang-${i}`} render={<a href={lang.link} className="flex cursor-pointer flex-col items-start rounded-md px-4 py-2" />}><div className="text-base leading-normal text-foreground">
-                            {lang.label}
-                          </div><div className="text-sm leading-normal text-muted-foreground">
-                            {lang.description}
-                          </div></DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
 };
 
 const PrivacyDialog = ({ trigger, title, text }: PrivacyDialog) => {
@@ -397,8 +129,6 @@ const Footer18 = ({ className }: Footer18Props) => {
                 ))}
               </ul>
               <div className="mt-4 flex flex-col items-start gap-2">
-                <CookiesPanel cookiesOptions={COOKIES_OPTIONS} />
-                <LanguagesSelect languages={LANGUAGES} />
                 <PrivacyDialog {...PRIVACY_DIALOG} />
               </div>
             </div>

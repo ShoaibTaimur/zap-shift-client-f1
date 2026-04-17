@@ -2,7 +2,7 @@ import serviceImg from "../../../../Resources/assets/service.png";
 
 const Services = () => {
   return (
-    <div className="bg-[#03373D] text-white py-15 md:py-23 px-6 sm:px-18 lg:px-27.5 rounded-2xl">
+    <div className="bg-[#03373D] text-white py-10 md:py-12 px-6 sm:px-10 lg:px-20 rounded-2xl border-none">
       <div className="flex items-center flex-col">
         <h1 className="text-[25px] md:text-[32px] font-bold">Our Services</h1>
         <p className="text-[14px] md:text-[16px] w-[90%] md:w-[70%] text-center font-medium">

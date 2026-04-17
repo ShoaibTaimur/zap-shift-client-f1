@@ -4,7 +4,7 @@ import NavBar from "./components/Shared/Navbar/NavBar";
 
 function App() {
   return (
-    <div className="mt-8 mx-2 md:mx-10">
+    <div className="mt-3 mx-2 md:mx-10">
       <NavBar />
       <Outlet />
       <Footer />
