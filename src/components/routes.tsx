@@ -1,6 +1,7 @@
 import App from "../App";
 import { createBrowserRouter } from "react-router";
 import Home from "./Pages/Home/Home";
+import Coverage from "./Pages/Coverage/Coverage";
 
 export const router = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ export const router = createBrowserRouter([
         index: true,
         Component: Home,
       },
+      {
+        path:"/coverage",
+        Component:Coverage
+      }
     ],
   },
 ]);
