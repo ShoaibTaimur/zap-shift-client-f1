@@ -4,7 +4,7 @@ import Reviews from "./Reviews";
 import Services from "./Services";
 import Works from "./Works";
 
-const reviewPromise =fetch("../../../../Resources/data/reviews.json")
+const reviewPromise =fetch("/public/data/reviews.json")
 .then(res=>res.json());
 
 const Home = () => {
