@@ -28,7 +28,7 @@ const Reviews = ({ reviewPromise }: reviewProps) => {
   const reviewsData = use(reviewPromise);
 
   return (
-    <div className="my-12 md:my-25 mx-8 md:mx-15">
+    <div className="my-12 md:my-25 mx-5 md:mx-15">
       <div className="flex flex-col items-center mb-8">
         <img className="mb-8" src={customerTop} alt="" />
         <h1 className="text-[25px] md:text-[32px] font-bold text-[#03373D] text-center mb-3">
@@ -40,7 +40,7 @@ const Reviews = ({ reviewPromise }: reviewProps) => {
           with ease!
         </p>
       </div>
-      <div className="mx-5 sm:mx-14 lg:mx-40 xl:mx-60">
+      <div>
         <Swiper
           effect={"coverflow"}
           grabCursor={true}
