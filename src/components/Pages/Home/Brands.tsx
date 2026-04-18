@@ -45,6 +45,24 @@ const Brands = () => {
           <SwiperSlide>
             <img src={start_people} alt="" />
           </SwiperSlide>
+          <SwiperSlide>
+            <img src={amazon} alt="" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src={casio} alt="" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src={moonstar} alt="" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src={randstad} alt="" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src={star} alt="" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src={start_people} alt="" />
+          </SwiperSlide>
         </Swiper>
       </div>
     </div>

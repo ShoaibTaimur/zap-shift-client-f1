@@ -1,10 +1,7 @@
 "use client";
 import logo from "../../../../Resources/assets/logo.png"
 import {
-  ArrowRight,
-  ChevronDown,
-  Cookie,
-  Languages,
+  ArrowRight
 } from "lucide-react";
 import { FaFacebookF, FaGithub, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
 
