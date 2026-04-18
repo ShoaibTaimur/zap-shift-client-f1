@@ -1,7 +1,17 @@
-const Review = ({reviews}) => {
+type ReviewData = {
+    review: string;
+    userName: string;
+    user_photoURL: string;
+};
+
+type ReviewProps = {
+    reviews: ReviewData;
+};
+
+const Review = ({reviews}: ReviewProps) => {
     const reviewsData = reviews?.review;
-    const userNameData =reviews?.userName;
-    const user_photoURLData=reviews?.user_photoURL;
+    const userNameData = reviews?.userName;
+    const user_photoURLData = reviews?.user_photoURL;
 
     const review=typeof reviewsData === "string"? reviewsData : "";
     const username=typeof userNameData === "string"? userNameData : "";

@@ -62,7 +62,7 @@ const Reviews = ({ reviewPromise }: reviewProps) => {
           className="mySwiper"
         >
           {reviewsData.map((reviews) => (
-            <SwiperSlide>
+            <SwiperSlide key={reviews.id}>
               <Review reviews={reviews}></Review>
             </SwiperSlide>
           ))}
