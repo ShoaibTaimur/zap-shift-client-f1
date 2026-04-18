@@ -19,7 +19,7 @@ const Coverage = () => {
 
   useEffect(() => {
     const loadData = async () => {
-      const res = await fetch("/public/data/warehouses.json");
+      const res = await fetch("/data/warehouses.json");
       const data = await res.json();
       setCenters(data);
     };
