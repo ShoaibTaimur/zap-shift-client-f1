@@ -1,4 +1,4 @@
-import type { LatLngExpression } from "leaflet";
+import type { LatLngExpression, LatLngTuple, Map } from "leaflet";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useRef, useState } from "react";
@@ -19,7 +19,7 @@ type center = {
 
 const Coverage = () => {
   const [centers, setCenters] = useState<center[]>([]);
-  const mapRef=useRef(null);
+  const mapRef = useRef<Map | null>(null);
 
   useEffect(() => {
     const loadData = async () => {
@@ -30,18 +30,19 @@ const Coverage = () => {
     loadData();
   }, []);
 
-  const handleSearch=(e: React.SyntheticEvent<HTMLFormElement>)=>{
+  const handleSearch = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData=new FormData(e.currentTarget);
-    const location=formData.get("location") as string;
-    const district=centers.find(c=>c.district.toLowerCase().includes(location.toLowerCase()));
-    if(district){
-      const coord=[district.latitude,district.longitude];
+    const formData = new FormData(e.currentTarget);
+    const location = formData.get("location") as string;
+    const district = centers.find((c) =>
+      c.district.toLowerCase().includes(location.toLowerCase()),
+    );
+    if (district) {
+      const coord :LatLngTuple = [district.latitude, district.longitude];
       console.log(district, coord);
-      mapRef.current.flyTo(coord,14);
+      mapRef.current?.flyTo(coord, 14);
     }
-
-  }
+  };
 
   const position: LatLngExpression = [23.685, 90.3563];
   return (
