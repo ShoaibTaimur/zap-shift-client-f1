@@ -41,8 +41,14 @@ function AuthProvider({ children }: AuthProviderProps) {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const updateUserProfile = (profile: { photoURL?: string | null }) => {
-    return updateProfile(auth.currentUser, profile);
+  const updateUserProfile = (profile: Parameters<typeof updateProfile>[1]) => {
+    const currentUser = auth.currentUser;
+
+    if (!currentUser) {
+      return Promise.reject(new Error("No authenticated user"));
+    }
+
+    return updateProfile(currentUser, profile);
   };
 
   useEffect(() => {

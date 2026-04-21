@@ -1,4 +1,4 @@
-import type { User, UserCredential } from "firebase/auth";
+import { updateProfile, type User, type UserCredential } from "firebase/auth";
 import { createContext, type Dispatch, type SetStateAction } from "react";
 
 type AuthContextType = {
@@ -9,7 +9,9 @@ type AuthContextType = {
   signInUser: (email: string, password: string) => Promise<UserCredential>;
   logOutUser: () => Promise<unknown>;
   signUpGoogle: () => Promise<UserCredential>;
-  updateUserProfile: (profile: { photoURL?: string }) => Promise<void>;
+  updateUserProfile: (
+    profile: Parameters<typeof updateProfile>[1],
+  ) => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextType | null>(null);
