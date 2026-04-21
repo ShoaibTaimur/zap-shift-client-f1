@@ -81,7 +81,6 @@ const SignUp = ({
                   type="password"
                   placeholder="Password"
                   className="bg-background text-sm"
-                  name="password"
                   {...register("password", { required: true, minLength: 6 })}
                 />
                 {errors.password?.type==='minLength' && (
