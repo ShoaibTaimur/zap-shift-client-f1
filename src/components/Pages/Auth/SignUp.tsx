@@ -70,7 +70,7 @@ const SignUp = ({
           const userProfile={
             photoURL:res?.data?.data?.url
           };
-          updateUserProfile(userProfile);
+          updateUserProfile?.(userProfile);
         });
 
         toast.success("Congrats! You Successfully became a rider.");

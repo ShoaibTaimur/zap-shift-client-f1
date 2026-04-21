@@ -83,7 +83,7 @@ const Navbar5 = ({ className }: Navbar5Props) => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  href="#"
+                  href="/rider"
                   className={navigationMenuTriggerStyle()}
                 >
                   <span className="text-[#606060]">Be a Rider</span>
@@ -160,7 +160,7 @@ const Navbar5 = ({ className }: Navbar5Props) => {
                   <a href="#" className="font-medium">
                     Pricing
                   </a>
-                  <a href="#" className="font-medium">
+                  <a href="/rider" className="font-medium">
                     Be a rider
                   </a>
                 </div>
