@@ -91,7 +91,7 @@ const Navbar5 = ({ className }: Navbar5Props) => {
           {user ? (
             <div className="hidden items-center gap-4 lg:flex">
               <Button
-                onClick={() => logout()}
+                onClick={() => logout?.()}
                 className="px-5"
                 variant="destructive"
               >
@@ -160,7 +160,7 @@ const Navbar5 = ({ className }: Navbar5Props) => {
                 {user ? (
                   <div className="mt-6 flex flex-col gap-4">
                     <Button
-                      onClick={() => logout()}
+                      onClick={() => logout?.()}
                       className="px-5"
                       variant="destructive"
                     >
