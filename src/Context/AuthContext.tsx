@@ -1,7 +1,14 @@
-import { createContext } from 'react'
+import type { User, UserCredential } from "firebase/auth";
+import { createContext, type Dispatch, type SetStateAction } from "react";
 
-type AuthContextType={
-    
-}
+type AuthContextType = {
+  loading: boolean;
+  setloading: Dispatch<SetStateAction<boolean>>;
+  user: User | null;
+  signUpUser: (email: string, password: string, name: string) => Promise<void>;
+  signInUser: (email: string, password: string) => Promise<UserCredential>;
+  logOutUser: () => Promise<unknown>;
+  signUpGoogle: () => Promise<UserCredential>;
+};
 
-export const AuthContext = createContext<AuthContextType | null>(null)
+export const AuthContext = createContext<AuthContextType | null>(null);

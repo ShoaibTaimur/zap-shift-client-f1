@@ -1,18 +1,64 @@
-import type { ReactNode } from 'react'
-import { AuthContext } from './AuthContext'
+import { useEffect, useState, type ReactNode } from "react";
+import { AuthContext } from "./AuthContext";
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  updateProfile,
+  type User,
+} from "firebase/auth";
+import { auth } from "@/Firebase/firebase.init";
 
 type AuthProviderProps = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
 function AuthProvider({ children }: AuthProviderProps) {
-  const userInfo = {}
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setloading] = useState<boolean>(true);
 
-  return (
-    <AuthContext value={userInfo}>
-      {children}
-    </AuthContext>
-  )
+  const logOutUser = () => {
+    return signOut(auth);
+  };
+
+  const signUpUser = async (email: string, password: string, name: string) => {
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+
+    await updateProfile(result.user, {
+      displayName: name,
+    });
+  };
+
+  const signUpGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
+  };
+
+  const signInUser = (email: string, password: string) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  useEffect(() => {
+    const userState = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return userState;
+  }, []);
+
+  const userInfo = {
+    setloading,
+    loading,
+    user,
+    signUpGoogle,
+    signUpUser,
+    signInUser,
+    logOutUser,
+  };
+
+  return <AuthContext value={userInfo}>{children}</AuthContext>;
 }
 
-export default AuthProvider
+export default AuthProvider;

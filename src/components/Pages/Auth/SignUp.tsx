@@ -4,6 +4,9 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import logo from "../../../../Resources/assets/logo.png";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { useContext } from "react";
+import { AuthContext } from "@/Context/AuthContext";
+import { toast } from "sonner";
 
 interface Login5Props {
   heading?: string;
@@ -29,14 +32,34 @@ const SignUp = ({
   loginUrl = "/auth",
   className,
 }: Login5Props) => {
+  const info = useContext(AuthContext);
+  const signUp = info?.signUpUser;
+  const googleSignUp = info?.signUpGoogle;
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
 
+  const handleGoogle = () => {
+    googleSignUp?.().then((result) => {
+      if (result) {
+        toast.success("Successfully Signed Up!");
+      }
+    });
+  };
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+    signUp?.(data?.email, data?.password, data?.name)
+      .then(() => {
+        toast.success("Congrats! You Successfully became a rider.");
+      })
+      .catch((error) => {
+        if (error.code == "auth/email-already-in-use") {
+          toast.warning("Sorry! Email is already being used.");
+        }
+      });
   };
 
   return (
@@ -81,11 +104,23 @@ const SignUp = ({
                   type="password"
                   placeholder="Password"
                   className="bg-background text-sm"
-                  {...register("password", { required: true, minLength: 6 })}
+                  {...register("password", {
+                    required: true,
+                    minLength: 6,
+                    pattern:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&-])[A-Za-z\d@$!%*?&-]{8,}$/,
+                  })}
                 />
-                {errors.password?.type==='minLength' && (
+                {errors.password?.type === "minLength" && (
                   <span className="text-xs text-red-500">
                     Minimum length is 6
+                  </span>
+                )}
+                {errors.password?.type === "pattern" && (
+                  <span className="text-xs text-red-500">
+                    Password must have atleast 1 lowercase letter, atleast 1
+                    uppercase letter, atleast 1 number, atleast 1 special
+                    character (@$!%*?&-) and minimum 8 characters total
                   </span>
                 )}
               </div>
@@ -93,7 +128,11 @@ const SignUp = ({
                 {buttonText}
               </Button>
               <div className="flex w-full flex-col gap-2">
-                <Button className="w-full" variant="outline">
+                <Button
+                  onClick={() => handleGoogle()}
+                  className="w-full"
+                  variant="outline"
+                >
                   <img
                     src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/google-icon.svg"
                     className="size-5"

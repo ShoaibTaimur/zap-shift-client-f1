@@ -1,12 +1,9 @@
 "use client";
 
 import { MenuIcon } from "lucide-react";
-import logo from "../../../../Resources/assets/logo.png"
+import logo from "../../../../Resources/assets/logo.png";
 
-
-import {
-  Accordion,
-} from "@/components/ui/accordion";
+import { Accordion } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -24,26 +21,25 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router";
+import { useContext } from "react";
+import { AuthContext } from "@/Context/AuthContext";
 
 interface Navbar5Props {
   className?: string;
 }
 
 const Navbar5 = ({ className }: Navbar5Props) => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+  const info = useContext(AuthContext);
+  const user = info?.user;
+  const logout = info?.logOutUser;
 
   return (
     <section className={cn("py-4", className)}>
       <div className="container">
         <nav className="flex items-center justify-between">
-          <a href="/"
-            className="flex items-end gap-2"
-          >
-            <img
-              src={logo}
-              className="max-h-8"
-              alt="UI Navbar"
-            />
+          <a href="/" className="flex items-end gap-2">
+            <img src={logo} className="max-h-8" alt="UI Navbar" />
             <span className="text-lg -mx-2.5 font-extrabold tracking-tighter">
               ZapShift
             </span>
@@ -92,18 +88,45 @@ const Navbar5 = ({ className }: Navbar5Props) => {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-          <div className="hidden items-center gap-4 lg:flex">
-            <Button onClick={()=>navigate("/auth")} className="px-5" variant="outline">Sign in</Button>
-            <Button onClick={()=>navigate("/auth/signUp")} className="px-5" variant="signUp">Be a Rider</Button>
-          </div>
+          {user ? (
+            <div className="hidden items-center gap-4 lg:flex">
+              <Button
+                onClick={() => logout()}
+                className="px-5"
+                variant="destructive"
+              >
+                Sign out
+              </Button>
+            </div>
+          ) : (
+            <div className="hidden items-center gap-4 lg:flex">
+              <Button
+                onClick={() => navigate("/auth")}
+                className="px-5"
+                variant="outline"
+              >
+                Sign in
+              </Button>
+              <Button
+                onClick={() => navigate("/auth/signUp")}
+                className="px-5"
+                variant="signUp"
+              >
+                Be a Rider
+              </Button>
+            </div>
+          )}
           <Sheet>
-            <SheetTrigger className="lg:hidden" render={<Button variant="outline" size="icon" />}><MenuIcon className="h-4 w-4" /></SheetTrigger>
+            <SheetTrigger
+              className="lg:hidden"
+              render={<Button variant="outline" size="icon" />}
+            >
+              <MenuIcon className="h-4 w-4" />
+            </SheetTrigger>
             <SheetContent side="top" className="max-h-screen overflow-auto">
               <SheetHeader>
                 <SheetTitle>
-                  <a href="/"
-                    className="flex items-end gap-2"
-                  >
+                  <a href="/" className="flex items-end gap-2">
                     <img
                       src={logo}
                       className="max-h-8"
@@ -116,8 +139,7 @@ const Navbar5 = ({ className }: Navbar5Props) => {
                 </SheetTitle>
               </SheetHeader>
               <div className="flex flex-col p-4">
-                <Accordion className="mt-4 mb-2">
-                </Accordion>
+                <Accordion className="mt-4 mb-2"></Accordion>
                 <div className="flex flex-col gap-6">
                   <a href="#" className="font-medium">
                     Services
@@ -135,10 +157,34 @@ const Navbar5 = ({ className }: Navbar5Props) => {
                     Be a rider
                   </a>
                 </div>
-                <div className="mt-6 flex flex-col gap-4">
-                  <Button onClick={()=>navigate("/auth")} variant="outline">Sign in</Button>
-                  <Button onClick={()=>navigate("/auth/signUp")} variant="signUp">Be a rider</Button>
-                </div>
+                {user ? (
+                  <div className="mt-6 flex flex-col gap-4">
+                    <Button
+                      onClick={() => logout()}
+                      className="px-5"
+                      variant="destructive"
+                    >
+                      Sign out
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="mt-6 flex flex-col gap-4">
+                    <Button
+                      onClick={() => navigate("/auth")}
+                      className="px-5"
+                      variant="outline"
+                    >
+                      Sign in
+                    </Button>
+                    <Button
+                      onClick={() => navigate("/auth/signUp")}
+                      className="px-5"
+                      variant="signUp"
+                    >
+                      Be a Rider
+                    </Button>
+                  </div>
+                )}
               </div>
             </SheetContent>
           </Sheet>
