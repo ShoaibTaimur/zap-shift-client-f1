@@ -13,7 +13,7 @@ const Error = () => {
   );
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center justify-center h-100 bg-white my-10 rounded-2xl">
       {View}
       <h1 className="text-center font-bold text-[30px]">Error 404</h1>
     </div>

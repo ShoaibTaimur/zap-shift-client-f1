@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router";
 import Home from "./Pages/Home/Home";
 import Coverage from "./Pages/Coverage/Coverage";
 import Error from "./Shared/Error";
+import AboutUs from "./Pages/AboutUs/AboutUs";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
         path: "/error",
         Component: Error,
       },
+      {
+        path:"/about-us",
+        Component:AboutUs
+      }
     ],
   },
 ]);

@@ -41,7 +41,7 @@ const Navbar5 = ({ className }: Navbar5Props) => {
             <img
               src={logo}
               className="max-h-8"
-              alt="Shadcn UI Navbar"
+              alt="UI Navbar"
             />
             <span className="text-lg -mx-2.5 font-extrabold tracking-tighter">
               ZapShift
@@ -67,7 +67,7 @@ const Navbar5 = ({ className }: Navbar5Props) => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  href="#"
+                  href="/about-us"
                   className={navigationMenuTriggerStyle()}
                 >
                   <span className="text-[#606060]">About Us</span>
@@ -124,7 +124,7 @@ const Navbar5 = ({ className }: Navbar5Props) => {
                   <a href="/coverage" className="font-medium">
                     Coverage
                   </a>
-                  <a href="#" className="font-medium">
+                  <a href="/about-us" className="font-medium">
                     About Us
                   </a>
                   <a href="#" className="font-medium">
