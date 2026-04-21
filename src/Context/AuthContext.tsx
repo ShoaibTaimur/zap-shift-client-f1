@@ -9,6 +9,7 @@ type AuthContextType = {
   signInUser: (email: string, password: string) => Promise<UserCredential>;
   logOutUser: () => Promise<unknown>;
   signUpGoogle: () => Promise<UserCredential>;
+  updateUserProfile: (profile: { photoURL?: string }) => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextType | null>(null);

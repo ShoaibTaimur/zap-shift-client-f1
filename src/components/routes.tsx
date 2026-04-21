@@ -7,6 +7,7 @@ import AboutUs from "./Pages/AboutUs/AboutUs";
 import Login from "./Pages/Auth/Login";
 import SignUp from "./Pages/Auth/SignUp";
 import AuthLayout from "./Pages/Auth/AuthLayout";
+import Private from "./Private";
 
 export const router = createBrowserRouter([
   {
@@ -19,7 +20,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/coverage",
-        Component: Coverage,
+        element:(
+          <Private>
+            <Coverage />
+          </Private>
+        )
       },
       {
         path: "/error",

@@ -23,6 +23,7 @@ import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "@/Context/AuthContext";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface Navbar5Props {
   className?: string;
@@ -33,6 +34,8 @@ const Navbar5 = ({ className }: Navbar5Props) => {
   const info = useContext(AuthContext);
   const user = info?.user;
   const logout = info?.logOutUser;
+  const imgValue=user?.photoURL;
+  const img=typeof imgValue === "string" ? imgValue : "";
 
   return (
     <section className={cn("py-4", className)}>
@@ -97,6 +100,10 @@ const Navbar5 = ({ className }: Navbar5Props) => {
               >
                 Sign out
               </Button>
+              <Avatar>
+                <AvatarImage src={img} />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
             </div>
           ) : (
             <div className="hidden items-center gap-4 lg:flex">

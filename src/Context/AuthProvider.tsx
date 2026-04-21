@@ -41,9 +41,14 @@ function AuthProvider({ children }: AuthProviderProps) {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  const updateUserProfile=(profile)=>{
+    return updateProfile(auth.currentUser,profile);
+  }
+
   useEffect(() => {
     const userState = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setloading(false);
     });
     return userState;
   }, []);
@@ -56,6 +61,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     signUpUser,
     signInUser,
     logOutUser,
+    updateUserProfile
   };
 
   return <AuthContext value={userInfo}>{children}</AuthContext>;

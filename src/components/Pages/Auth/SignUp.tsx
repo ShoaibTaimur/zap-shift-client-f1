@@ -7,6 +7,8 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { useContext } from "react";
 import { AuthContext } from "@/Context/AuthContext";
 import { toast } from "sonner";
+import { FieldDescription, FieldLabel } from "@/components/ui/field";
+import axios from "axios";
 
 interface Login5Props {
   heading?: string;
@@ -22,6 +24,7 @@ type Inputs = {
   name: string;
   email: string;
   password: string;
+  photo: FileList;
 };
 
 const SignUp = ({
@@ -35,6 +38,9 @@ const SignUp = ({
   const info = useContext(AuthContext);
   const signUp = info?.signUpUser;
   const googleSignUp = info?.signUpGoogle;
+  const user = info?.user;
+  const updateUserProfile=info?.updateUserProfile;
+  console.log(user);
 
   const {
     register,
@@ -51,8 +57,22 @@ const SignUp = ({
   };
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const profileImg = data.photo[0];
+
     signUp?.(data?.email, data?.password, data?.name)
       .then(() => {
+        const formData = new FormData();
+        formData.append("image", profileImg);
+        axios.post(
+          `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOST}`,
+          formData,
+        ).then(res=>{
+          const userProfile={
+            photoURL:res?.data?.data?.url
+          };
+          updateUserProfile(userProfile);
+        });
+
         toast.success("Congrats! You Successfully became a rider.");
       })
       .catch((error) => {
@@ -70,6 +90,15 @@ const SignUp = ({
           {heading && <h1 className="text-2xl font-semibold">{heading}</h1>}
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex w-75 sm:w-full sm:max-w-sm sm:min-w-sm flex-col items-center gap-y-4 rounded-lg bg-white border border-[#bce212] px-6 py-12">
+              <div className="flex w-full flex-col gap-2">
+                <FieldLabel htmlFor="picture">Picture</FieldLabel>
+                <Input
+                  id="picture"
+                  type="file"
+                  {...register("photo", { required: true })}
+                />
+                <FieldDescription>Select a picture to upload.</FieldDescription>
+              </div>
               <div className="flex w-full flex-col gap-2">
                 <Label>Name</Label>
                 <Input
