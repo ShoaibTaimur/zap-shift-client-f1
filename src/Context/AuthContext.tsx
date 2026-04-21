@@ -1,3 +1,7 @@
 import { createContext } from 'react'
 
-export const AuthContext = createContext<Record<string, never> | null>(null)
+type AuthContextType={
+    
+}
+
+export const AuthContext = createContext<AuthContextType | null>(null)

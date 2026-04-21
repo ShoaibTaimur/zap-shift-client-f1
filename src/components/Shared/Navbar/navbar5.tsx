@@ -23,13 +23,14 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router";
 
 interface Navbar5Props {
   className?: string;
 }
 
 const Navbar5 = ({ className }: Navbar5Props) => {
-
+  const navigate=useNavigate();
 
   return (
     <section className={cn("py-4", className)}>
@@ -92,8 +93,8 @@ const Navbar5 = ({ className }: Navbar5Props) => {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
-            <Button className="px-5" variant="outline">Sign in</Button>
-            <Button className="px-5" variant="signUp">Be a Rider</Button>
+            <Button onClick={()=>navigate("/auth")} className="px-5" variant="outline">Sign in</Button>
+            <Button onClick={()=>navigate("/auth/signUp")} className="px-5" variant="signUp">Be a Rider</Button>
           </div>
           <Sheet>
             <SheetTrigger className="lg:hidden" render={<Button variant="outline" size="icon" />}><MenuIcon className="h-4 w-4" /></SheetTrigger>
@@ -135,8 +136,8 @@ const Navbar5 = ({ className }: Navbar5Props) => {
                   </a>
                 </div>
                 <div className="mt-6 flex flex-col gap-4">
-                  <Button variant="outline">Sign in</Button>
-                  <Button variant="signUp">Be a rider</Button>
+                  <Button onClick={()=>navigate("/auth")} variant="outline">Sign in</Button>
+                  <Button onClick={()=>navigate("/auth/signUp")} variant="signUp">Be a rider</Button>
                 </div>
               </div>
             </SheetContent>
