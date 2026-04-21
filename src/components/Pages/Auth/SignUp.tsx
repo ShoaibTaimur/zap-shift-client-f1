@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import logo from "../../../../Resources/assets/logo.png";
+import { useForm, type SubmitHandler } from "react-hook-form";
 
 interface Login5Props {
   heading?: string;
@@ -14,6 +15,11 @@ interface Login5Props {
   loginUrl?: string;
   className?: string;
 }
+type Inputs = {
+  name: string;
+  email: string;
+  password: string;
+};
 
 const SignUp = ({
   heading = "Create your Account",
@@ -23,13 +29,23 @@ const SignUp = ({
   loginUrl = "/auth",
   className,
 }: Login5Props) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+  };
+
   return (
     <section className={cn("py-10 bg-background", className)}>
       <div className="flex items-center justify-center">
         <div className="flex flex-col items-center gap-6 lg:justify-start">
           <img src={logo} alt="zapshift-logo" className="h-10 dark:invert" />
           {heading && <h1 className="text-2xl font-semibold">{heading}</h1>}
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex w-75 sm:w-full sm:max-w-sm sm:min-w-sm flex-col items-center gap-y-4 rounded-lg bg-white border border-[#bce212] px-6 py-12">
               <div className="flex w-full flex-col gap-2">
                 <Label>Name</Label>
@@ -37,9 +53,13 @@ const SignUp = ({
                   type="text"
                   placeholder="your full name"
                   className="bg-background text-sm"
-                  name="name"
-                  required
+                  {...register("name", { required: true })}
                 />
+                {errors.name && (
+                  <span className="text-xs text-red-500">
+                    This field is required
+                  </span>
+                )}
               </div>
               <div className="flex w-full flex-col gap-2">
                 <Label>Email</Label>
@@ -47,9 +67,13 @@ const SignUp = ({
                   type="email"
                   placeholder="Email"
                   className="bg-background text-sm"
-                  name="email"
-                  required
+                  {...register("email", { required: true })}
                 />
+                {errors.email && (
+                  <span className="text-xs text-red-500">
+                    This field is required
+                  </span>
+                )}
               </div>
               <div className="flex w-full flex-col gap-2">
                 <Label>Password</Label>
@@ -58,8 +82,13 @@ const SignUp = ({
                   placeholder="Password"
                   className="bg-background text-sm"
                   name="password"
-                  required
+                  {...register("password", { required: true, minLength: 6 })}
                 />
+                {errors.password?.type==='minLength' && (
+                  <span className="text-xs text-red-500">
+                    Minimum length is 6
+                  </span>
+                )}
               </div>
               <Button variant="signUp" type="submit" className="w-full">
                 {buttonText}
