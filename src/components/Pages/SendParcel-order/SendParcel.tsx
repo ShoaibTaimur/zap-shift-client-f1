@@ -8,6 +8,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import Swal from "sweetalert2";
 
 type Inputs = {
   docType: string;
@@ -29,10 +30,61 @@ const SendParcel = () => {
   const {
     register,
     handleSubmit,
+    getValues,
+    trigger,
     formState: { errors },
   } = useForm<Inputs>();
+
+  const calculateCost = (data: Inputs) => {
+    const isDocument = data?.docType === "Document";
+    const isSameDivision = data?.senderDivision === data?.receiverDivision;
+    const parcelWeight = data?.parcelWeight;
+    let cost: number = 0;
+
+    if (isDocument) {
+      cost = isSameDivision ? 60 : 80;
+    } else {
+      if (parcelWeight <= 3) {
+        cost = isSameDivision ? 110 : 150;
+      } else {
+        cost = isSameDivision
+          ? (parcelWeight - 3) * 40 + 110
+          : (parcelWeight - 3) * 40 + 150;
+      }
+    }
+    return cost;
+  };
+
+  const handleConfirm = async () => {
+    const isValid = await trigger();
+
+    if (!isValid) return;
+
+    const formData = getValues();
+    const cost = calculateCost(formData);
+    Swal.fire({
+      title: "Are you sure?",
+      text: `Parcel cost is ${cost} Tk`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, submit it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Done!",
+          text: "Your request is submitted.",
+          icon: "success",
+        });
+        handleSubmit(onSubmit)();
+      }
+    });
+  };
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+    const cost = calculateCost(data);
+    console.log({ ...data, cost });
   };
 
   const [divisions, setDivisions] = useState<string[]>([]);
@@ -94,7 +146,10 @@ const SendParcel = () => {
               type="number"
               placeholder="Parcel Weight (KG)"
               className="text-[10px] md:text-sm"
-              {...register("parcelWeight", { required: true })}
+              {...register("parcelWeight", {
+                required: true,
+                valueAsNumber: true,
+              })}
             />
             {errors.parcelWeight && (
               <span className="text-xs text-red-500">
@@ -287,7 +342,12 @@ const SendParcel = () => {
             </div>
           </div>
         </div>
-        <Button type="submit" className="w-full" variant="signUp">
+        <Button
+          type="button"
+          onClick={handleConfirm}
+          className="w-full"
+          variant="signUp"
+        >
           Proceed to Confirm Booking
         </Button>
       </form>

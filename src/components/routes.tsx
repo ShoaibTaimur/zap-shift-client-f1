@@ -10,6 +10,7 @@ import AuthLayout from "./Pages/Auth/AuthLayout";
 import Private from "./Private";
 import Rider from "./Pages/Rider/Rider";
 import SendParcel from "./Pages/SendParcel-order/SendParcel";
+import Order from "./Pages/SendParcel-order/Order";
 
 export const router = createBrowserRouter([
   {
@@ -44,7 +45,7 @@ export const router = createBrowserRouter([
         path:"/order",
         element:(
           <Private>
-            <SendParcel />
+            <Order />
           </Private>
           )
       },
