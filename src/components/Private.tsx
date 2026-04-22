@@ -1,10 +1,11 @@
 import { AuthContext } from "@/Context/AuthContext";
 import { useContext } from "react";
-import { Navigate } from "react-router";
+import { Navigate, useLocation } from "react-router";
 import type { ReactNode } from "react";
 import { Skeleton } from "./ui/skeleton";
 
 const Private = ({ children }: { children: ReactNode }) => {
+  const location =useLocation();
   const info = useContext(AuthContext);
   const user = info?.user;
   const loading = info?.loading;
@@ -26,7 +27,7 @@ const Private = ({ children }: { children: ReactNode }) => {
     );
   }
   if (!user) {
-    return <Navigate to="/auth" />;
+    return <Navigate state={location?.pathname} to="/auth" />;
   }
   return children;
 };

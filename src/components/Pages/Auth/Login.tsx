@@ -7,6 +7,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { useContext } from "react";
 import { AuthContext } from "@/Context/AuthContext";
 import { toast } from "sonner";
+import { useLocation, useNavigate } from "react-router";
 
 interface Login5Props {
   heading?: string;
@@ -32,6 +33,8 @@ const Login = ({
   signupUrl = "/auth/signUp",
   className,
 }: Login5Props) => {
+  const location=useLocation();
+  const navigate=useNavigate();
   const info = useContext(AuthContext);
   const signIn = info?.signInUser;
   const loginGoogle = info?.signUpGoogle;
@@ -46,6 +49,7 @@ const Login = ({
     loginGoogle?.().then((result) => {
       if (result) {
         toast.success("Logged in Successfully!");
+        navigate(location?.state || "/");
       }
     });
   };
@@ -54,6 +58,7 @@ const Login = ({
     signIn?.(data.email, data.password)
       .then(() => {
         toast.success("Logged in Successfully.");
+        navigate(location?.state || "/");
       })
       .catch((error) => {
         if (error.code == "auth/invalid-credential") {

@@ -9,6 +9,7 @@ import { AuthContext } from "@/Context/AuthContext";
 import { toast } from "sonner";
 import { FieldDescription, FieldLabel } from "@/components/ui/field";
 import axios from "axios";
+import { useLocation, useNavigate } from "react-router";
 
 interface Login5Props {
   heading?: string;
@@ -35,6 +36,8 @@ const SignUp = ({
   loginUrl = "/auth",
   className,
 }: Login5Props) => {
+  const location=useLocation();
+  const navigate=useNavigate();
   const info = useContext(AuthContext);
   const signUp = info?.signUpUser;
   const googleSignUp = info?.signUpGoogle;
@@ -52,6 +55,7 @@ const SignUp = ({
     googleSignUp?.().then((result) => {
       if (result) {
         toast.success("Successfully Signed Up!");
+        navigate(location?.state || "/");
       }
     });
   };

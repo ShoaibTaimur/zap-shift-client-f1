@@ -21,15 +21,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "/coverage",
-        element:(
-          <Private>
-            <Coverage />
-          </Private>
-        )
+        Component:Coverage
       },
       {
         path:"/rider",
-        Component:Rider
+        element:(
+          <Private>
+            <Rider />
+          </Private>
+          )
       },
       {
         path: "/error",
