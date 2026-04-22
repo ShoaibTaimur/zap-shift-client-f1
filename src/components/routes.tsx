@@ -9,6 +9,7 @@ import SignUp from "./Pages/Auth/SignUp";
 import AuthLayout from "./Pages/Auth/AuthLayout";
 import Private from "./Private";
 import Rider from "./Pages/Rider/Rider";
+import SendParcel from "./Pages/SendParcel-order/SendParcel";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,22 @@ export const router = createBrowserRouter([
         element:(
           <Private>
             <Rider />
+          </Private>
+          )
+      },
+      {
+        path:"/sendParcel",
+        element:(
+          <Private>
+            <SendParcel />
+          </Private>
+          )
+      },
+      {
+        path:"/order",
+        element:(
+          <Private>
+            <SendParcel />
           </Private>
           )
       },

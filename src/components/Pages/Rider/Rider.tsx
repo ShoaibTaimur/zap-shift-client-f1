@@ -3,6 +3,11 @@ import agentPending from "../../../../Resources/assets/agent-pending.png";
 import { Input } from "@/components/ui/input";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Button } from "@/components/ui/button";
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from "@/components/ui/native-select";
+import { useEffect, useState } from "react";
 type Inputs = {
   name: string;
   email: string;
@@ -12,6 +17,7 @@ type Inputs = {
   modelYear: string;
   regNo: string;
   yourself: string;
+  division: string;
 };
 
 const Rider = () => {
@@ -24,6 +30,17 @@ const Rider = () => {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
   };
+
+  const [divisions, setDivisions] = useState<string[]>([]);
+
+  useEffect(() => {
+    const loadData = async () => {
+      const res = await fetch("/data/division.json");
+      const data = await res.json();
+      setDivisions(data);
+    };
+    loadData();
+  }, []);
 
   return (
     <div className="bg-white rounded-2xl py-16 px-8 md:px-18 lg:px-24 my-10">
@@ -88,6 +105,19 @@ const Rider = () => {
                   This field is required
                 </span>
               )}
+            </div>
+            <div>
+              <Label className="text-[#03373D] text-[12px] md:text-[14px] font-medium">
+                Your Division
+              </Label>
+              <NativeSelect className="w-full" {...register("division", { required: true })}>
+                <NativeSelectOption value="">Select division</NativeSelectOption>
+                {divisions.map((division, i) => (
+                  <NativeSelectOption key={i} value={division}>
+                    {division}
+                  </NativeSelectOption>
+                ))}
+              </NativeSelect>
             </div>
             <div>
               <Label className="text-[#03373D] text-[12px] md:text-[14px] font-medium">
@@ -169,7 +199,9 @@ const Rider = () => {
                 </span>
               )}
             </div>
-            <Button type="submit" className="w-full" variant="signUp">Submit</Button>
+            <Button type="submit" className="w-full" variant="signUp">
+              Submit
+            </Button>
           </form>
         </div>
         <div className="hidden md:flex justify-center items-center">
