@@ -6,6 +6,7 @@ import {
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import { Textarea } from "@/components/ui/textarea";
+import AxiosSecure from "@/Hooks/AxiosSecure";
 import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import Swal from "sweetalert2";
@@ -72,6 +73,7 @@ const SendParcel = () => {
       confirmButtonText: "Yes, submit it!",
     }).then((result) => {
       if (result.isConfirmed) {
+        axiosSecure.post("/parcels");
         Swal.fire({
           title: "Done!",
           text: "Your request is submitted.",
@@ -97,6 +99,8 @@ const SendParcel = () => {
     };
     loadData();
   }, []);
+
+  const axiosSecure = AxiosSecure();
 
   return (
     <div className="bg-white rounded-2xl py-16 px-8 md:px-24 my-10">
