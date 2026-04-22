@@ -84,7 +84,7 @@ const Rider = () => {
                 className="text-[10px] md:text-sm"
                 {...register("license", { required: true })}
               />
-              {errors.name && (
+              {errors.license && (
                 <span className="text-xs text-red-500">
                   This field is required
                 </span>
@@ -100,7 +100,7 @@ const Rider = () => {
                 className="text-[10px] md:text-sm"
                 {...register("email", { required: true })}
               />
-              {errors.name && (
+              {errors.email && (
                 <span className="text-xs text-red-500">
                   This field is required
                 </span>
@@ -110,14 +110,24 @@ const Rider = () => {
               <Label className="text-[#03373D] text-[12px] md:text-[14px] font-medium">
                 Your Division
               </Label>
-              <NativeSelect className="w-full" {...register("division", { required: true })}>
-                <NativeSelectOption value="">Select division</NativeSelectOption>
+              <NativeSelect
+                className="w-full"
+                {...register("division", { required: true })}
+              >
+                <NativeSelectOption value="">
+                  Select division
+                </NativeSelectOption>
                 {divisions.map((division, i) => (
                   <NativeSelectOption key={i} value={division}>
                     {division}
                   </NativeSelectOption>
                 ))}
               </NativeSelect>
+              {errors.division && (
+                <span className="text-xs text-red-500">
+                  This field is required
+                </span>
+              )}
             </div>
             <div>
               <Label className="text-[#03373D] text-[12px] md:text-[14px] font-medium">
@@ -129,7 +139,7 @@ const Rider = () => {
                 className="text-[10px] md:text-sm"
                 {...register("nid", { required: true })}
               />
-              {errors.name && (
+              {errors.nid && (
                 <span className="text-xs text-red-500">
                   This field is required
                 </span>
@@ -145,7 +155,7 @@ const Rider = () => {
                 className="text-[10px] md:text-sm"
                 {...register("number", { required: true })}
               />
-              {errors.name && (
+              {errors.number && (
                 <span className="text-xs text-red-500">
                   This field is required
                 </span>
@@ -161,7 +171,7 @@ const Rider = () => {
                 className="text-[10px] md:text-sm"
                 {...register("modelYear", { required: true })}
               />
-              {errors.name && (
+              {errors.modelYear && (
                 <span className="text-xs text-red-500">
                   This field is required
                 </span>
@@ -177,7 +187,7 @@ const Rider = () => {
                 className="text-[10px] md:text-sm"
                 {...register("regNo", { required: true })}
               />
-              {errors.name && (
+              {errors.regNo && (
                 <span className="text-xs text-red-500">
                   This field is required
                 </span>
@@ -193,7 +203,7 @@ const Rider = () => {
                 className="text-[10px] md:text-sm"
                 {...register("yourself", { required: true })}
               />
-              {errors.name && (
+              {errors.yourself && (
                 <span className="text-xs text-red-500">
                   This field is required
                 </span>
