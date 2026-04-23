@@ -93,18 +93,10 @@ const Navbar5 = ({ className }: Navbar5Props) => {
                 <div className="flex">
                   <NavigationMenuItem>
                     <NavigationMenuLink
-                      href="/sendParcel"
+                      href="/dashboard"
                       className={navigationMenuTriggerStyle()}
                     >
-                      <span className="text-[#606060]">Send a Parcel</span>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <NavigationMenuLink
-                      href="/order"
-                      className={navigationMenuTriggerStyle()}
-                    >
-                      <span className="text-[#606060]">Track Order</span>
+                      <span className="text-[#606060]">Dashboard</span>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
                 </div>
@@ -187,11 +179,8 @@ const Navbar5 = ({ className }: Navbar5Props) => {
                   </a>
                   {user ? (
                     <div className="flex flex-col gap-6">
-                      <a href="/sendParcel" className="font-medium">
-                        Send a Parcel
-                      </a>
-                      <a href="/order" className="font-medium">
-                        Track Order
+                      <a href="/dashboard" className="font-medium">
+                        Dashboard
                       </a>
                     </div>
                   ) : (

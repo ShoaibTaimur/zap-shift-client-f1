@@ -6,8 +6,9 @@ import {
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import { Textarea } from "@/components/ui/textarea";
+import { AuthContext } from "@/Context/AuthContext";
 import AxiosSecure from "@/Hooks/AxiosSecure";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import Swal from "sweetalert2";
 
@@ -28,6 +29,10 @@ type Inputs = {
 };
 
 const SendParcel = () => {
+  const info = useContext(AuthContext);
+  const user = info?.user;
+  const senderEmail = user?.email;
+  const axiosSecure = AxiosSecure();
   const {
     register,
     handleSubmit,
@@ -73,7 +78,6 @@ const SendParcel = () => {
       confirmButtonText: "Yes, submit it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.post("/parcels");
         Swal.fire({
           title: "Done!",
           text: "Your request is submitted.",
@@ -86,7 +90,10 @@ const SendParcel = () => {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const cost = calculateCost(data);
-    console.log({ ...data, cost });
+    const newData = { ...data, cost, senderEmail };
+    axiosSecure.post("/parcels", newData).then((res) => {
+      console.log(res);
+    });
   };
 
   const [divisions, setDivisions] = useState<string[]>([]);
@@ -100,10 +107,8 @@ const SendParcel = () => {
     loadData();
   }, []);
 
-  const axiosSecure = AxiosSecure();
-
   return (
-    <div className="bg-white rounded-2xl py-16 px-8 md:px-24 my-10">
+    <div className="bg-white rounded-2xl px-8 md:px-10 py-6">
       <h1 className="text-[#03373D] text-[30px] lg:text-[45px] font-extrabold">
         Send a Parcel
       </h1>
@@ -174,6 +179,7 @@ const SendParcel = () => {
               <Input
                 type="text"
                 placeholder="Sender Name"
+                defaultValue={user?.displayName ?? ""}
                 className="text-[10px] md:text-sm"
                 {...register("senderName", { required: true })}
               />

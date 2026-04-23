@@ -1,7 +1,7 @@
 
 const Order = () => {
     return (
-        <div className="bg-white rounded-2xl py-16 px-8 md:px-24 my-10">
+        <div className="bg-white rounded-2xl px-8 md:px-10 py-6">
             order
         </div>
     );

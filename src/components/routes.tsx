@@ -11,6 +11,7 @@ import Private from "./Private";
 import Rider from "./Pages/Rider/Rider";
 import SendParcel from "./Pages/SendParcel-order/SendParcel";
 import Order from "./Pages/SendParcel-order/Order";
+import Dashboard from "./Pages/Dashboard/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -23,39 +24,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/coverage",
-        Component:Coverage
-      },
-      {
-        path:"/rider",
-        element:(
-          <Private>
-            <Rider />
-          </Private>
-          )
-      },
-      {
-        path:"/sendParcel",
-        element:(
-          <Private>
-            <SendParcel />
-          </Private>
-          )
-      },
-      {
-        path:"/order",
-        element:(
-          <Private>
-            <Order />
-          </Private>
-          )
+        Component: Coverage,
       },
       {
         path: "/error",
         Component: Error,
       },
       {
-        path:"/about-us",
-        Component:AboutUs
+        path: "/about-us",
+        Component: AboutUs,
+      },
+      {
+        path: "rider",
+        Component: Rider,
       },
       {
         path: "/auth",
@@ -74,6 +55,24 @@ export const router = createBrowserRouter([
             Component: SignUp,
           },
         ],
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <Private>
+        <Dashboard />
+      </Private>
+    ),
+    children: [
+      {
+        index: true,
+        Component: Order,
+      },
+      {
+        path: "sendParcel",
+        Component: SendParcel,
       },
     ],
   },

@@ -7,6 +7,7 @@ import { ThemeProvider } from "./components/theme-provider";
 import AuthProvider from "./Context/AuthProvider";
 import { router } from "./components/routes";
 import { Toaster } from "sonner";
+import { TooltipProvider } from "./components/ui/tooltip";
 
 const queryClient = new QueryClient();
 
@@ -15,8 +16,10 @@ createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <AuthProvider>
-          <Toaster />
-          <RouterProvider router={router} />
+          <TooltipProvider>
+            <Toaster />
+            <RouterProvider router={router} />
+          </TooltipProvider>
         </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
