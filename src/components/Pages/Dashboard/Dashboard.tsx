@@ -8,7 +8,7 @@ import {
 
 const Dashboard = () => {
   return (
-    <div className="mx-auto w-full max-w-7xl">
+    <div className="w-full">
       <SidebarProvider>
         <AppSideBar />
         <SidebarInset>
