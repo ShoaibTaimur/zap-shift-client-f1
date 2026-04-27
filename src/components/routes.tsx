@@ -12,6 +12,7 @@ import Rider from "./Pages/Rider/Rider";
 import SendParcel from "./Pages/SendParcel-order/SendParcel";
 import Order from "./Pages/SendParcel-order/Order";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import ParcelDetails from "./Pages/SendParcel-order/ParcelDetails";
 
 export const router = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ export const router = createBrowserRouter([
         path: "sendParcel",
         Component: SendParcel,
       },
+      {
+        path:"parcelDetail/:id",
+        Component:ParcelDetails
+      }
     ],
   },
 ]);
