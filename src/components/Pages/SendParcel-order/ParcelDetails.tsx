@@ -23,7 +23,7 @@ type orderType = {
 const ParcelDetails = () => {
   const idOBJ = useParams();
   const axiosSecure = AxiosSecure();
-  const id: string = idOBJ.id;
+  const id = idOBJ.id;
   const [details, setDetails] = useState<orderType | null>(null);
   useEffect(() => {
     const loadData = async () => {
