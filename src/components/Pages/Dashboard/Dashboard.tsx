@@ -14,9 +14,8 @@ const Dashboard = () => {
   const info = useContext(AuthContext);
   const user = info?.user;
   const logout = info?.logOutUser;
-  const photo = user?.photoURL;
+  const photo = typeof user?.photoURL==="string" ? user?.photoURL : "";
   const fallback = user?.displayName?.slice(0, 2).toUpperCase() || "US";
-  console.log(photo);
 
   return (
     <div className="w-full">
