@@ -1,5 +1,6 @@
+import Loading from "@/components/Shared/Loading";
 import AxiosSecure from "@/Hooks/AxiosSecure";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 
 type orderType = {
@@ -24,17 +25,22 @@ const ParcelDetails = () => {
   const idOBJ = useParams();
   const axiosSecure = AxiosSecure();
   const id = idOBJ.id;
-  const [details, setDetails] = useState<orderType | null>(null);
-  useEffect(() => {
-    const loadData = async () => {
-      const res = await axiosSecure.get<orderType>(`/parcels/details/${id}`);
-      setDetails(res.data);
-    };
-    loadData();
-  }, [axiosSecure, id]);
+
+  const { data: details, isLoading } = useQuery<orderType>({
+    queryKey: ["parcelDetails", id],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/parcels/details/${id}`);
+      return res.data;
+    },
+    enabled: !!id,
+  });
+
+  if (isLoading) return <Loading />;
   return (
     <div>
-      <h1 className="text-[#03373D] text-[30px] lg:text-[45px] font-extrabold">Parcel Details</h1>
+      <h1 className="text-[#03373D] text-[30px] lg:text-[45px] font-extrabold">
+        Parcel Details
+      </h1>
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 mb-8">
         <div className="bg-[#ffffff] p-6 rounded-2xl">
           <h1 className="text-[#03373D] text-[16px] md:text-[24px] font-extrabold">

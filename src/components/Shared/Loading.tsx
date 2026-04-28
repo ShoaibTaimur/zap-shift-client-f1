@@ -1,0 +1,21 @@
+import { Skeleton } from "../ui/skeleton";
+
+const Loading = () => {
+    return (
+        <div className="flex justify-center items-center h-70 bg-white my-10 rounded-2xl">
+        <div className="flex w-full max-w-xs flex-col gap-7">
+          <div className="flex flex-col gap-3">
+            <Skeleton className="h-4 w-20" />
+            <Skeleton className="h-8 w-full" />
+          </div>
+          <div className="flex flex-col gap-3">
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-8 w-full" />
+          </div>
+          <Skeleton className="h-8 w-24" />
+        </div>
+      </div>
+    );
+};
+
+export default Loading;

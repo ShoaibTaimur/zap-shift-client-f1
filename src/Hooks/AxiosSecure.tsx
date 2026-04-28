@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosSecure=axios.create({
-    baseURL:"https://zap-shift-server-f1.vercel.app/"
+    baseURL:"http://localhost:5001"
 })
 const AxiosSecure = () => {
     return axiosSecure;
