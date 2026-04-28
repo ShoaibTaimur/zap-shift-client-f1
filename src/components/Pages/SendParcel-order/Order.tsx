@@ -28,6 +28,8 @@ type parcelType = {
   _id: string;
   parcelName: string;
   cost: number;
+  deliveryStatus: string;
+  paymentStatus: string;
 };
 
 const Order = () => {
@@ -71,6 +73,7 @@ const Order = () => {
             <TableHead>Parcel Name</TableHead>
             <TableHead>Parcel Cost</TableHead>
             <TableHead>Payment Status</TableHead>
+            <TableHead>Delivery Status</TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -79,8 +82,20 @@ const Order = () => {
             <TableRow key={parcel._id}>
               <TableCell>{i + 1}</TableCell>
               <TableCell>{parcel?.parcelName}</TableCell>
-              <TableCell>{parcel.cost}</TableCell>
-              <TableCell>NULL</TableCell>
+              <TableCell>{parcel?.cost}</TableCell>
+              <TableCell>
+                {parcel.paymentStatus === "paid" ? (
+                  <span className="text-green-400">Paid</span>
+                ) : (
+                  <Button
+                    onClick={() => navigate(`/dashboard/payment/${parcel._id}`)}
+                    variant="secondary"
+                  >
+                    Pay now
+                  </Button>
+                )}
+              </TableCell>
+              <TableCell>{parcel?.deliveryStatus}</TableCell>
               <TableCell className="flex gap-5">
                 <Button onClick={() => handleView(parcel._id)}>View</Button>
                 <Button variant="outline">Edit</Button>

@@ -13,6 +13,7 @@ import SendParcel from "./Pages/SendParcel-order/SendParcel";
 import Order from "./Pages/SendParcel-order/Order";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import ParcelDetails from "./Pages/SendParcel-order/ParcelDetails";
+import Payment from "./Pages/Dashboard/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -78,6 +79,10 @@ export const router = createBrowserRouter([
       {
         path:"parcelDetail/:id",
         Component:ParcelDetails
+      },
+      {
+        path:"payment/:id",
+        Component:Payment
       }
     ],
   },

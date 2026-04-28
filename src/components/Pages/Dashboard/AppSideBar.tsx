@@ -1,4 +1,4 @@
-import { HomeIcon, PackageIcon,ShoppingCart } from "lucide-react";
+import { HandCoins, HomeIcon, PackageIcon,ShoppingCart } from "lucide-react";
 import { NavLink, useLocation } from "react-router";
 import logo from "../../../../Resources/assets/logo.png";
 import {
