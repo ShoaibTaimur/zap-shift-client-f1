@@ -8,6 +8,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { AuthContext } from "@/Context/AuthContext";
 import AxiosSecure from "@/Hooks/AxiosSecure";
+import { useQueryClient } from "@tanstack/react-query";
 import { useContext, useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import Swal from "sweetalert2";
@@ -29,6 +30,7 @@ type Inputs = {
 };
 
 const SendParcel = () => {
+  const queryClient = useQueryClient();
   const info = useContext(AuthContext);
   const user = info?.user;
   const senderEmail = user?.email;
@@ -94,6 +96,7 @@ const SendParcel = () => {
     axiosSecure.post("/parcels", newData).then((res) => {
       console.log(res);
     });
+    queryClient.invalidateQueries({ queryKey: ["allParcels"] });
   };
 
   const [divisions, setDivisions] = useState<string[]>([]);
