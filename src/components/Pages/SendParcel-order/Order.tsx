@@ -19,8 +19,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { AuthContext } from "@/Context/AuthContext";
 import AxiosSecure from "@/Hooks/AxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
@@ -33,6 +35,9 @@ type parcelType = {
 };
 
 const Order = () => {
+  const info = useContext(AuthContext);
+  const user = info?.user;
+  const email = typeof user?.email === "string" ? user?.email : "";
   const axiosSecure = AxiosSecure();
   const navigate = useNavigate();
 
@@ -41,11 +46,12 @@ const Order = () => {
     isLoading,
     refetch,
   } = useQuery<parcelType[]>({
-    queryKey: ["allParcels"],
+    queryKey: ["allParcels", email],
     queryFn: async () => {
-      const res = await axiosSecure.get("/parcels");
+      const res = await axiosSecure.get(`/parcels?email=${email}`);
       return res.data;
     },
+    enabled: !!email,
   });
   if (isLoading) return <Loading />;
 
