@@ -6,7 +6,7 @@ import { Link } from "react-router";
 
 const PaymentCancel = () => {
   return (
-    <div className="overflow-hidden rounded-3xl border border-amber-100 bg-gradient-to-br from-amber-50 via-white to-rose-50 shadow-sm">
+    <div className="overflow-hidden rounded-3xl border border-amber-100 bg-linear-to-br from-amber-50 via-white to-rose-50 shadow-sm">
       <div className="grid gap-8 p-8 md:p-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
         <div className="space-y-6">
           <div className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-100/80 px-4 py-2 text-sm font-semibold text-amber-700">
