@@ -7,6 +7,7 @@ import { Link, useSearchParams } from "react-router";
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
+  // const [paymentInfo,setPaymentInfo]=useState();
   const sessionId = searchParams.get("session_id");
   const axiosSecure = AxiosSecure();
   console.log(sessionId);
