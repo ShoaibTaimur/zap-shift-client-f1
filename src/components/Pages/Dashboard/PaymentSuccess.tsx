@@ -1,10 +1,24 @@
-
 import { buttonVariants } from "@/components/ui/button";
+import AxiosSecure from "@/Hooks/AxiosSecure";
 import { cn } from "@/lib/utils";
 import { ArrowRight, CheckCircle2, PackageCheck } from "lucide-react";
-import { Link } from "react-router";
+import { useEffect } from "react";
+import { Link, useSearchParams } from "react-router";
 
 const PaymentSuccess = () => {
+  const [searchParams] = useSearchParams();
+  const sessionId = searchParams.get("session_id");
+  const axiosSecure = AxiosSecure();
+  console.log(sessionId);
+  useEffect(() => {
+    if (sessionId) {
+      axiosSecure
+        .patch(`/payment-success?session_id=${sessionId}`)
+        .then((res) => {
+          console.log(res.data);
+        });
+    }
+  }, [sessionId, axiosSecure]);
   return (
     <div className="overflow-hidden rounded-3xl border border-emerald-100 bg-linear-to-br from-emerald-50 via-white to-teal-50 shadow-sm">
       <div className="grid gap-8 p-8 md:p-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
@@ -28,7 +42,10 @@ const PaymentSuccess = () => {
             <Link
               to="/dashboard"
               className={cn(
-                buttonVariants({ className: "rounded-full bg-[#03373D] px-6 hover:bg-[#02262B]" })
+                buttonVariants({
+                  className:
+                    "rounded-full bg-[#03373D] px-6 hover:bg-[#02262B]",
+                }),
               )}
             >
               Back to orders
@@ -37,7 +54,10 @@ const PaymentSuccess = () => {
             <Link
               to="/dashboard/sendParcel"
               className={cn(
-                buttonVariants({ variant: "outline", className: "rounded-full border-slate-200 px-6" })
+                buttonVariants({
+                  variant: "outline",
+                  className: "rounded-full border-slate-200 px-6",
+                }),
               )}
             >
               Create new parcel
