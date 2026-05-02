@@ -2,12 +2,16 @@ import { buttonVariants } from "@/components/ui/button";
 import AxiosSecure from "@/Hooks/AxiosSecure";
 import { cn } from "@/lib/utils";
 import { ArrowRight, CheckCircle2, PackageCheck } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
+type paymentType = {
+  transactionId: string;
+  trackingId: string;
+};
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
-  // const [paymentInfo,setPaymentInfo]=useState();
+  const [paymentInfo, setPaymentInfo] = useState<paymentType | null>(null);
   const sessionId = searchParams.get("session_id");
   const axiosSecure = AxiosSecure();
   console.log(sessionId);
@@ -17,6 +21,10 @@ const PaymentSuccess = () => {
         .patch(`/payment-success?session_id=${sessionId}`)
         .then((res) => {
           console.log(res.data);
+          setPaymentInfo({
+            transactionId: res.data.transactionId,
+            trackingId: res.data.trackingId,
+          });
         });
     }
   }, [sessionId, axiosSecure]);
