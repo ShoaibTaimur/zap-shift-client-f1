@@ -1,7 +1,9 @@
 import Loading from "@/components/Shared/Loading";
+import { Button } from "@/components/ui/button";
 import AxiosSecure from "@/Hooks/AxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
+import { ArrowBigLeft } from "lucide-react";
+import { useNavigate, useParams } from "react-router";
 
 type orderType = {
   _id: string;
@@ -22,6 +24,7 @@ type orderType = {
 };
 
 const ParcelDetails = () => {
+  const navigate=useNavigate();
   const idOBJ = useParams();
   const axiosSecure = AxiosSecure();
   const id = idOBJ.id;
@@ -38,6 +41,7 @@ const ParcelDetails = () => {
   if (isLoading) return <Loading />;
   return (
     <div>
+      <Button onClick={()=>navigate("/dashboard")} variant="link"><ArrowBigLeft />Go Back</Button>
       <h1 className="text-[#03373D] text-[30px] lg:text-[45px] font-extrabold">
         Parcel Details
       </h1>

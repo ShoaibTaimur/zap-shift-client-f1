@@ -14,7 +14,6 @@ const PaymentSuccess = () => {
   const [paymentInfo, setPaymentInfo] = useState<paymentType | null>(null);
   const sessionId = searchParams.get("session_id");
   const axiosSecure = AxiosSecure();
-  console.log(sessionId);
   useEffect(() => {
     if (sessionId) {
       axiosSecure
