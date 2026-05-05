@@ -1,3 +1,12 @@
+import Loading from "@/components/Shared/Loading";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import AxiosSecure from "@/Hooks/AxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 
@@ -6,7 +15,7 @@ type payment = {
   amount: number;
   currency: string;
   customerEmail: string;
-  parcelId: string;
+  paymentId: string;
   parcelName: string;
   transactionId: string;
   paymentStatus: string;
@@ -14,16 +23,42 @@ type payment = {
 
 const PaymentHistory = () => {
   const axiosSecure = AxiosSecure();
-  const { data: payments = [] } = useQuery<payment[]>({
+  const { data: payments = [], isLoading } = useQuery<payment[]>({
     queryKey: ["paymentHistory"],
     queryFn: async () => {
       const res = await axiosSecure.get("/payments");
       return res.data;
     },
   });
+  if (isLoading) return <Loading />;
+
   return (
     <div className="bg-white rounded-2xl px-8 md:px-10 py-6">
-      payment History:{payments.length}
+      <h1 className="text-[#03373D] text-[30px] lg:text-[45px] font-extrabold">
+        Payment History
+      </h1>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>No.</TableHead>
+            <TableHead>Parcel Name</TableHead>
+            <TableHead>Cost</TableHead>
+            <TableHead>Payment Status</TableHead>
+            <TableHead>Transaction ID</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {payments.map((payment, i) => (
+            <TableRow key={payment._id}>
+              <TableCell>{i + 1}</TableCell>
+              <TableCell>{payment?.parcelName}</TableCell>
+              <TableCell>{payment?.amount}</TableCell>
+              <TableCell>{payment?.paymentStatus}</TableCell>
+              <TableCell>{payment?.transactionId}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </div>
   );
 };
