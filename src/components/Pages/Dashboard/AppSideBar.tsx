@@ -1,4 +1,4 @@
-import { HomeIcon, PackageIcon,ShoppingCart } from "lucide-react";
+import { History, HomeIcon, PackageIcon,ShoppingCart } from "lucide-react";
 import { NavLink, useLocation } from "react-router";
 import logo from "../../../../Resources/assets/logo.png";
 import {
@@ -30,6 +30,11 @@ const items = [
     title: "Send Parcel",
     url: "/dashboard/sendParcel",
     icon: PackageIcon,
+  },
+  {
+    title: "Payment History",
+    url: "/dashboard/payment-history",
+    icon: History,
   },
 ];
 

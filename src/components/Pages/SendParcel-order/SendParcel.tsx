@@ -135,13 +135,13 @@ const SendParcel = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 my-5">
           <div>
-            <Label className="text-[#03373D] text-[12px] md:text-[14px] font-medium">
+            <Label className="text-[#03373D] text-[14px] font-medium">
               Parcel Name
             </Label>
             <Input
               type="text"
               placeholder="Parcel Name"
-              className="text-[10px] md:text-sm"
+              className="text-[14px] md:text-sm"
               {...register("parcelName", { required: true })}
             />
             {errors.parcelName && (
@@ -151,13 +151,13 @@ const SendParcel = () => {
             )}
           </div>
           <div>
-            <Label className="text-[#03373D] text-[12px] md:text-[14px] font-medium">
+            <Label className="text-[#03373D] text-[14px] font-medium">
               Parcel Weight (KG)
             </Label>
             <Input
               type="number"
               placeholder="Parcel Weight (KG)"
-              className="text-[10px] md:text-sm"
+              className="text-[14px] md:text-sm"
               {...register("parcelWeight", {
                 required: true,
                 valueAsNumber: true,
@@ -172,18 +172,18 @@ const SendParcel = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 my-5">
           <div className="space-y-5">
-            <h1 className="text-[#03373D] text-[10px] md:text-[18px] font-extrabold my-5">
+            <h1 className="text-[#03373D] text-[16px] md:text-[18px] font-extrabold my-5">
               Sender Details
             </h1>
             <div>
-              <Label className="text-[#03373D] text-[12px] md:text-[14px] font-medium">
+              <Label className="text-[#03373D] text-[14px] font-medium">
                 Sender Name
               </Label>
               <Input
                 type="text"
                 placeholder="Sender Name"
                 defaultValue={user?.displayName ?? ""}
-                className="text-[10px] md:text-sm"
+                className="text-[14px] md:text-sm"
                 {...register("senderName", { required: true })}
               />
               {errors.senderName && (
@@ -193,13 +193,13 @@ const SendParcel = () => {
               )}
             </div>
             <div>
-              <Label className="text-[#03373D] text-[12px] md:text-[14px] font-medium">
+              <Label className="text-[#03373D] text-[14px] font-medium">
                 Address
               </Label>
               <Input
                 type="text"
                 placeholder="Address"
-                className="text-[10px] md:text-sm"
+                className="text-[14px] md:text-sm"
                 {...register("senderAddress", { required: true })}
               />
               {errors.senderAddress && (
@@ -209,13 +209,13 @@ const SendParcel = () => {
               )}
             </div>
             <div>
-              <Label className="text-[#03373D] text-[12px] md:text-[14px] font-medium">
+              <Label className="text-[#03373D] text-[14px] font-medium">
                 Sender Phone No
               </Label>
               <Input
                 type="number"
                 placeholder="Sender Phone No"
-                className="text-[10px] md:text-sm"
+                className="text-[14px] md:text-sm"
                 {...register("senderPhoneNo", { required: true })}
               />
               {errors.senderPhoneNo && (
@@ -225,7 +225,7 @@ const SendParcel = () => {
               )}
             </div>
             <div>
-              <Label className="text-[#03373D] text-[12px] md:text-[14px] font-medium">
+              <Label className="text-[#03373D] text-[14px] font-medium">
                 Your Division
               </Label>
               <NativeSelect
@@ -248,12 +248,12 @@ const SendParcel = () => {
               )}
             </div>
             <div>
-              <Label className="text-[#03373D] text-[12px] md:text-[14px] font-medium">
+              <Label className="text-[#03373D] text-[14px] font-medium">
                 Pickup Instruction
               </Label>
               <Textarea
                 placeholder="Pickup Instruction"
-                className="text-[10px] md:text-sm"
+                className="text-[14px] md:text-sm"
                 {...register("senderInstruction", { required: true })}
               />
               {errors.senderInstruction && (
@@ -264,17 +264,17 @@ const SendParcel = () => {
             </div>
           </div>
           <div className="space-y-5">
-            <h1 className="text-[#03373D] text-[10px] md:text-[18px] font-extrabold my-5">
+            <h1 className="text-[#03373D] text-[16px] md:text-[18px] font-extrabold my-5">
               Receiver Details
             </h1>
             <div>
-              <Label className="text-[#03373D] text-[12px] md:text-[14px] font-medium">
+              <Label className="text-[#03373D] text-[14px] font-medium">
                 Receiver Name
               </Label>
               <Input
                 type="text"
                 placeholder="Receiver Name"
-                className="text-[10px] md:text-sm"
+                className="text-[14px] md:text-sm"
                 {...register("receiverName", { required: true })}
               />
               {errors.receiverName && (
@@ -284,13 +284,13 @@ const SendParcel = () => {
               )}
             </div>
             <div>
-              <Label className="text-[#03373D] text-[12px] md:text-[14px] font-medium">
+              <Label className="text-[#03373D] text-[14px] font-medium">
                 Receiver Address
               </Label>
               <Input
                 type="text"
                 placeholder="Receiver Address"
-                className="text-[10px] md:text-sm"
+                className="text-[14px] md:text-sm"
                 {...register("receiverAddress", { required: true })}
               />
               {errors.receiverAddress && (
@@ -300,13 +300,13 @@ const SendParcel = () => {
               )}
             </div>
             <div>
-              <Label className="text-[#03373D] text-[12px] md:text-[14px] font-medium">
+              <Label className="text-[#03373D] text-[14px] font-medium">
                 Receiver Phone No
               </Label>
               <Input
                 type="number"
                 placeholder="Receiver Phone No"
-                className="text-[10px] md:text-sm"
+                className="text-[14px] md:text-sm"
                 {...register("receiverPhoneNo", { required: true })}
               />
               {errors.receiverPhoneNo && (
@@ -316,7 +316,7 @@ const SendParcel = () => {
               )}
             </div>
             <div>
-              <Label className="text-[#03373D] text-[12px] md:text-[14px] font-medium">
+              <Label className="text-[#03373D] text-[14px] font-medium">
                 Receiver Division
               </Label>
               <NativeSelect
@@ -339,12 +339,12 @@ const SendParcel = () => {
               )}
             </div>
             <div>
-              <Label className="text-[#03373D] text-[12px] md:text-[14px] font-medium">
+              <Label className="text-[#03373D] text-[14px] font-medium">
                 Delivery Instruction
               </Label>
               <Textarea
                 placeholder="Delivery Instruction"
-                className="text-[10px] md:text-sm"
+                className="text-[14px] md:text-sm"
                 {...register("receiverInstruction", { required: true })}
               />
               {errors.receiverInstruction && (
