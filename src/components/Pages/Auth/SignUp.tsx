@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { FieldDescription, FieldLabel } from "@/components/ui/field";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router";
+import AxiosSecure from "@/Hooks/AxiosSecure";
 
 interface Login5Props {
   heading?: string;
@@ -36,14 +37,13 @@ const SignUp = ({
   loginUrl = "/auth",
   className,
 }: Login5Props) => {
-  const location=useLocation();
-  const navigate=useNavigate();
+  const location = useLocation();
+  const navigate = useNavigate();
   const info = useContext(AuthContext);
   const signUp = info?.signUpUser;
   const googleSignUp = info?.signUpGoogle;
-  const user = info?.user;
-  const updateUserProfile=info?.updateUserProfile;
-  console.log(user);
+  const updateUserProfile = info?.updateUserProfile;
+  const axiosSecure = AxiosSecure();
 
   const {
     register,
@@ -67,15 +67,24 @@ const SignUp = ({
       .then(() => {
         const formData = new FormData();
         formData.append("image", profileImg);
-        axios.post(
-          `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOST}`,
-          formData,
-        ).then(res=>{
-          const userProfile={
-            photoURL:res?.data?.data?.url
-          };
-          updateUserProfile?.(userProfile);
-        });
+        axios
+          .post(
+            `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOST}`,
+            formData,
+          )
+          .then((res) => {
+            const userInfo = {
+              displayName: data?.name,
+              email: data?.email,
+              photoURL: res?.data?.data?.url,
+            };
+            axiosSecure.post("/users", userInfo);
+
+            const userProfile = {
+              photoURL: res?.data?.data?.url,
+            };
+            updateUserProfile?.(userProfile);
+          });
 
         toast.success("Congrats! You Successfully became a rider.");
       })
