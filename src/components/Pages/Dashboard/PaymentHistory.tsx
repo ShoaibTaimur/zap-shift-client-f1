@@ -33,6 +33,7 @@ const PaymentHistory = () => {
       const res = await axiosSecure.get(`/payments?email=${email}`);
       return res.data;
     },
+    enabled:!!email
   });
   if (isLoading) return <Loading />;
 

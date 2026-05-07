@@ -17,6 +17,8 @@ const AxiosSecure = () => {
     const reqInterceptor = axiosSecure.interceptors.request.use(
       async (config) => {
         const accessToken = await user?.getIdToken();
+        console.log("accesstoken: ",accessToken);
+        console.log("user: ",user);
         config.headers.Authorization = `Bearer ${accessToken}`;
         return config;
       },
