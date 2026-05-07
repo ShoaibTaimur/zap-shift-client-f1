@@ -10,8 +10,6 @@ const axiosSecure = axios.create({
 const AxiosSecure = () => {
   const info = useContext(AuthContext);
   const user = info?.user;
-  console.log(user);
-  console.log(info);
   const navigate = useNavigate();
 
   useEffect(() => {
