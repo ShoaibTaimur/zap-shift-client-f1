@@ -7,8 +7,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { AuthContext } from "@/Context/AuthContext";
 import AxiosSecure from "@/Hooks/AxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
 
 type payment = {
   _id: string;
@@ -23,10 +25,12 @@ type payment = {
 
 const PaymentHistory = () => {
   const axiosSecure = AxiosSecure();
+  const info=useContext(AuthContext);
+  const email=info?.user?.email;
   const { data: payments = [], isLoading } = useQuery<payment[]>({
-    queryKey: ["paymentHistory"],
+    queryKey: ["paymentHistory",email],
     queryFn: async () => {
-      const res = await axiosSecure.get("/payments");
+      const res = await axiosSecure.get(`/payments?email=${email}`);
       return res.data;
     },
   });
