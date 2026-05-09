@@ -8,6 +8,8 @@ import {
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import { useEffect, useState } from "react";
+import AxiosSecure from "@/Hooks/AxiosSecure";
+import { toast } from "sonner";
 type Inputs = {
   name: string;
   email: string;
@@ -21,6 +23,7 @@ type Inputs = {
 };
 
 const Rider = () => {
+  const axiosSecure=AxiosSecure();
   const {
     register,
     handleSubmit,
@@ -28,7 +31,12 @@ const Rider = () => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+    axiosSecure.post("/ridersInfo",data)
+    .then(res=>{
+      if(res?.data?.insertedId){
+        toast.success("Successfully submitted RIDER REQUEST.")
+      }
+    })
   };
 
   const [divisions, setDivisions] = useState<string[]>([]);
