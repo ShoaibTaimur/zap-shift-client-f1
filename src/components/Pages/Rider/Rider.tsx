@@ -23,7 +23,7 @@ type Inputs = {
 };
 
 const Rider = () => {
-  const axiosSecure=AxiosSecure();
+  const axiosSecure = AxiosSecure();
   const {
     register,
     handleSubmit,
@@ -31,12 +31,18 @@ const Rider = () => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    axiosSecure.post("/ridersInfo",data)
-    .then(res=>{
-      if(res?.data?.insertedId){
-        toast.success("Successfully submitted RIDER REQUEST.")
-      }
-    })
+    axiosSecure
+      .post("/ridersInfo", data)
+      .then((res) => {
+        if (res?.data?.insertedId) {
+          toast.success("Successfully submitted RIDER REQUEST.");
+        }
+      })
+      .catch((error) => {
+        if (error?.response?.status === 409) {
+          toast.error("Rider request already exists.");
+        }
+      });
   };
 
   const [divisions, setDivisions] = useState<string[]>([]);
