@@ -1,4 +1,4 @@
-import { History, HomeIcon, PackageIcon,ShoppingCart } from "lucide-react";
+import { BookCheck, History, HomeIcon, PackageIcon,ShoppingCart } from "lucide-react";
 import { NavLink, useLocation } from "react-router";
 import logo from "../../../../Resources/assets/logo.png";
 import {
@@ -35,6 +35,11 @@ const items = [
     title: "Payment History",
     url: "/dashboard/payment-history",
     icon: History,
+  },
+  {
+    title: "Approve Riders",
+    url: "/dashboard/rider-approve",
+    icon: BookCheck,
   },
 ];
 

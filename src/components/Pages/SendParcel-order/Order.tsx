@@ -72,67 +72,85 @@ const Order = () => {
       <h1 className="text-[#03373D] text-[30px] lg:text-[45px] font-extrabold">
         My Orders
       </h1>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>No.</TableHead>
-            <TableHead>Parcel Name</TableHead>
-            <TableHead>Parcel Cost</TableHead>
-            <TableHead>Payment Status</TableHead>
-            <TableHead>Delivery Status</TableHead>
-            <TableHead>Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {parcels.map((parcel, i) => (
-            <TableRow key={parcel._id}>
-              <TableCell>{i + 1}</TableCell>
-              <TableCell>{parcel?.parcelName}</TableCell>
-              <TableCell>{parcel?.cost}</TableCell>
-              <TableCell>
-                {parcel.paymentStatus === "paid" ? (
-                  <span className="text-green-400">Paid</span>
-                ) : (
-                  <Button
-                    onClick={() => navigate(`/dashboard/payment/${parcel._id}`)}
-                    variant="secondary"
-                  >
-                    Pay now
-                  </Button>
-                )}
-              </TableCell>
-              <TableCell>{parcel?.deliveryStatus}</TableCell>
-              <TableCell className="flex gap-5">
-                <Button onClick={() => handleView(parcel._id)}>View</Button>
-                <Button variant="outline">Edit</Button>
-                <AlertDialog>
-                  <AlertDialogTrigger
-                    render={<Button variant="destructive">Delete</Button>}
-                  />
-                  <AlertDialogContent size="sm">
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        Do you want to delete this parcel? This action can not
-                        be reverted.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction
-                        onClick={() => handleDelete(parcel._id)}
-                        variant="destructive"
-                      >
-                        Delete
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </TableCell>
+      {parcels.length === 0 ? (
+        <div className="mt-8 flex min-h-80 items-center justify-center rounded-3xl border border-dashed border-[#03373D]/20 bg-linear-to-br from-[#F4FBFB] via-white to-[#E8F6F6] px-4 py-10 sm:px-6">
+          <div className="flex w-full max-w-md flex-col items-center text-center">
+            <div className="relative mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-[#03373D]/8 sm:h-24 sm:w-24">
+              <div className="absolute h-14 w-14 rounded-full border border-[#03373D]/15 bg-white sm:h-16 sm:w-16" />
+              <div className="relative h-4 w-4 rounded-full bg-[#0EA5A4] sm:h-5 sm:w-5" />
+            </div>
+            <h2 className="text-xl font-bold text-[#03373D] sm:text-2xl">
+              No orders available
+            </h2>
+            <p className="mt-3 max-w-sm text-sm leading-6 text-slate-500 sm:text-base">
+              Your parcel orders will show here after booking. Then you can
+              track status, pay, or manage each order.
+            </p>
+          </div>
+        </div>
+      ) : (
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>No.</TableHead>
+              <TableHead>Parcel Name</TableHead>
+              <TableHead>Parcel Cost</TableHead>
+              <TableHead>Payment Status</TableHead>
+              <TableHead>Delivery Status</TableHead>
+              <TableHead>Actions</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {parcels.map((parcel, i) => (
+              <TableRow key={parcel._id}>
+                <TableCell>{i + 1}</TableCell>
+                <TableCell>{parcel?.parcelName}</TableCell>
+                <TableCell>{parcel?.cost}</TableCell>
+                <TableCell>
+                  {parcel.paymentStatus === "paid" ? (
+                    <span className="text-green-400">Paid</span>
+                  ) : (
+                    <Button
+                      onClick={() => navigate(`/dashboard/payment/${parcel._id}`)}
+                      variant="secondary"
+                    >
+                      Pay now
+                    </Button>
+                  )}
+                </TableCell>
+                <TableCell>{parcel?.deliveryStatus}</TableCell>
+                <TableCell className="flex gap-5">
+                  <Button onClick={() => handleView(parcel._id)}>View</Button>
+                  <Button variant="outline">Edit</Button>
+                  <AlertDialog>
+                    <AlertDialogTrigger
+                      render={<Button variant="destructive">Delete</Button>}
+                    />
+                    <AlertDialogContent size="sm">
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Do you want to delete this parcel? This action can not
+                          be reverted.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => handleDelete(parcel._id)}
+                          variant="destructive"
+                        >
+                          Delete
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
     </div>
   );
 };
