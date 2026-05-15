@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { AuthContext } from "@/Context/AuthContext";
 import { toast } from "sonner";
 import { useLocation, useNavigate } from "react-router";
+import AxiosSecure from "@/Hooks/AxiosSecure";
 
 interface Login5Props {
   heading?: string;
@@ -38,6 +39,7 @@ const Login = ({
   const info = useContext(AuthContext);
   const signIn = info?.signInUser;
   const loginGoogle = info?.signUpGoogle;
+  const axiosSecure=AxiosSecure();
 
   const {
     register,
@@ -51,6 +53,12 @@ const Login = ({
         toast.success("Logged in Successfully!");
         navigate(location?.state || "/");
       }
+      const newData = {
+        displayName: result?.user?.displayName,
+        email: result?.user?.email,
+        photoURL: result?.user?.photoURL,
+      };
+      axiosSecure.post("/users", newData);
     });
   };
 

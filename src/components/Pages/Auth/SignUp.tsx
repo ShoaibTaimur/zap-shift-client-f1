@@ -57,6 +57,12 @@ const SignUp = ({
         toast.success("Successfully Signed Up!");
         navigate(location?.state || "/");
       }
+      const newData = {
+        displayName: result?.user?.displayName,
+        email: result?.user?.email,
+        photoURL: result?.user?.photoURL,
+      };
+      axiosSecure.post("/users", newData);
     });
   };
 
