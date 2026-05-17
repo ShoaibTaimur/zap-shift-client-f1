@@ -19,6 +19,8 @@ import PaymentCancel from "./Pages/Dashboard/PaymentCancel";
 import PaymentHistory from "./Pages/Dashboard/PaymentHistory";
 import RiderApprove from "./Pages/Rider/RiderApprove";
 import UserManagement from "./Pages/Admin/UserManagement";
+import AdminRoute from "./Pages/Admin/AdminRoute";
+import SuperAdminRoute from "./Pages/Admin/SuperAdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -103,11 +105,19 @@ export const router = createBrowserRouter([
       },
       {
         path:"rider-approve",
-        Component:RiderApprove
+        element: (
+          <AdminRoute>
+            <RiderApprove />
+          </AdminRoute>
+        ),
       },
       {
         path:"user-management",
-        Component:UserManagement
+        element: (
+          <SuperAdminRoute>
+            <UserManagement />
+          </SuperAdminRoute>
+        ),
       }
     ],
   },

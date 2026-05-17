@@ -1,4 +1,11 @@
-import { BookCheck, History, HomeIcon, PackageIcon,ShoppingCart, UserCog } from "lucide-react";
+import {
+  BookCheck,
+  History,
+  HomeIcon,
+  PackageIcon,
+  ShoppingCart,
+  UserCog,
+} from "lucide-react";
 import { NavLink, useLocation } from "react-router";
 import logo from "../../../../Resources/assets/logo.png";
 import {
@@ -14,8 +21,10 @@ import {
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
+import UseRole from "@/Hooks/UseRole";
+import Loading from "@/components/Shared/Loading";
 
-const items = [
+const commonItems = [
   {
     title: "Home",
     url: "/",
@@ -36,6 +45,16 @@ const items = [
     url: "/dashboard/payment-history",
     icon: History,
   },
+];
+const adminItems = [
+  {
+    title: "Approve Riders",
+    url: "/dashboard/rider-approve",
+    icon: BookCheck,
+  },
+];
+
+const superAdminItems = [
   {
     title: "Approve Riders",
     url: "/dashboard/rider-approve",
@@ -51,6 +70,16 @@ const items = [
 const AppSideBar = () => {
   const { pathname } = useLocation();
   const { state } = useSidebar();
+  const { role, isLoading } = UseRole();
+
+  const items =
+    role === "super_admin"
+      ? [...commonItems, ...superAdminItems]
+      : role === "admin"
+        ? [...commonItems, ...adminItems]
+        : commonItems;
+
+  if (isLoading) return <Loading />;
 
   return (
     <Sidebar

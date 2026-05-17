@@ -51,7 +51,7 @@ const UserManagement = () => {
 
   const handleRevoke = (id: string) => {
     const roleUpdate={role:"user"};
-    axiosSecure.patch(`/users/${id}`,roleUpdate)
+    axiosSecure.patch(`/users/${id}/role`,roleUpdate)
     .then((res)=>{
       if(res?.data?.modifiedCount){
         toast.warning("Admin Power revoked.");
@@ -61,10 +61,10 @@ const UserManagement = () => {
   };
   const handleGrant = (id: string) => {
     const roleUpdate = { role: "admin" };
-    axiosSecure.patch(`/users/${id}`, roleUpdate)
+    axiosSecure.patch(`/users/${id}/role`, roleUpdate)
     .then((res) => {
       if(res?.data?.modifiedCount){
-        toast.success("Admin permission given Successfully;")
+        toast.success("Admin permission given Successfully")
       }
       refetch();
     });
@@ -94,7 +94,35 @@ const UserManagement = () => {
               <TableCell className="text-center">{user?.email}</TableCell>
               <TableCell className="text-center">{user?.role}</TableCell>
               <TableCell className="flex justify-center">
-                {user?.role == "admin" ? (
+                {user?.role == "super_admin" ? (
+                  <AlertDialog>
+                    <AlertDialogTrigger
+                      render={
+                        <Button disabled variant="destructive">
+                          <FaUserMinus />
+                        </Button>
+                      }
+                    />
+                    <AlertDialogContent size="sm">
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Do you want to remove admin access from this user?
+                          This action can not be reverted.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => handleRevoke(user?._id)}
+                          variant="destructive"
+                        >
+                          Revoke
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                ) : user?.role=="admin" ? (
                   <AlertDialog>
                     <AlertDialogTrigger
                       render={
@@ -122,7 +150,7 @@ const UserManagement = () => {
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>
-                ) : (
+                ):(
                   <AlertDialog>
                     <AlertDialogTrigger
                       render={
