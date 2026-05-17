@@ -2,7 +2,7 @@ import { Footer18 } from "./footer18";
 
 const Footer = () => {
     return (
-        <div className="px-5 rounded-2xl bg-white">
+        <div className="glass-surface rounded-2xl bg-white px-5">
             <Footer18 />
         </div>
     );

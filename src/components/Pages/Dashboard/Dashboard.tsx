@@ -18,12 +18,12 @@ const Dashboard = () => {
   const fallback = user?.displayName?.slice(0, 2).toUpperCase() || "US";
 
   return (
-    <div className="w-full">
+    <div className="page-shell w-full">
       <SidebarProvider>
         <AppSideBar />
         <SidebarInset>
           <div
-            className="flex items-center justify-between border-b px-4 py-3 text-[#03373D] md:px-6"
+            className="glass-surface flex items-center justify-between border-b px-4 py-3 text-[#03373D] md:px-6"
             style={{
               backgroundColor: "#FFFFFF",
               borderColor: "#E5E7EB",
@@ -40,7 +40,7 @@ const Dashboard = () => {
               </Avatar>
             </div>
           </div>
-          <div className="flex-1 p-4 md:p-6 bg-gray-100">
+          <div className="page-shell flex-1 bg-gray-100 p-4 md:p-6">
             <Outlet />
           </div>
         </SidebarInset>

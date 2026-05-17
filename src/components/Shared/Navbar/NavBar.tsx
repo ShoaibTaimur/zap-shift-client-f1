@@ -2,7 +2,7 @@ import { Navbar5 } from "./navbar5";
 
 const NavBar = () => {
     return (
-        <div className="relative z-40 bg-white px-5 rounded-2xl border-b-gray-200">
+        <div className="glass-surface relative z-40 rounded-2xl bg-white px-5 border-b-gray-200">
             <Navbar5 />
         </div>
     );
