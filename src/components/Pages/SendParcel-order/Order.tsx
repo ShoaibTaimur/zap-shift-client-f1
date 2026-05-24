@@ -123,7 +123,7 @@ const Order = () => {
                 <TableCell>
                   {parcel?.deliveryStatus === "pending-pickup" ? (
                     <span className="text-red-400">Pending Pickup</span>
-                  ) : parcel?.deliveryStatus === "assigned" ? (
+                  ) : parcel?.deliveryStatus === "in_delivery" ? (
                     <span className="text-yellow-400">Assigned</span>
                   ) : parcel?.deliveryStatus === "delivered" ? (
                     <span className="text-green-400">Delivered</span>

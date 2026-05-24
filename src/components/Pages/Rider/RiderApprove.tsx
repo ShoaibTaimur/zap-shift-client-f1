@@ -35,6 +35,7 @@ type riderInfo = {
   regNo: string;
   yourself: string;
   status: string;
+  workingStatus: string;
   createdAt: string;
 };
 
@@ -64,6 +65,19 @@ const RiderApprove = () => {
 
     return <span>{status}</span>;
   };
+  const getWorkingStatus=(workingStatus:string)=>{
+    if (workingStatus === "available") {
+      return <span className="text-green-400">Available</span>;
+    }
+    if (workingStatus === "in_delivery") {
+      return <span className="text-yellow-400">In Delivery</span>;
+    }
+    if (workingStatus === "not_available") {
+      return <span className="text-red-400">Not Available</span>;
+    }
+
+    return <span>{status}</span>;
+  }
   const handleAccept = async (rider: riderInfo) => {
     const id = rider?._id;
     await axiosSecure
@@ -130,6 +144,7 @@ const RiderApprove = () => {
                 <TableHead>Name</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Status</TableHead>
+                <TableHead>Working Status</TableHead>
                 <TableHead>District</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
@@ -140,7 +155,8 @@ const RiderApprove = () => {
                   <TableCell>{i + 1}</TableCell>
                   <TableCell>{rider?.name}</TableCell>
                   <TableCell>{rider?.email}</TableCell>
-                  <TableCell>{getStatus(rider.status)}</TableCell>
+                  <TableCell>{getStatus(rider?.status)}</TableCell>
+                  <TableCell>{getWorkingStatus(rider?.workingStatus)}</TableCell>
                   <TableCell>{rider?.division}</TableCell>
                   <TableCell className="flex gap-5">
                     {rider.status === "pending" ? (

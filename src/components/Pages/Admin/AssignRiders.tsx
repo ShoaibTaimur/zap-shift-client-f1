@@ -1,6 +1,16 @@
 import Loading from "@/components/Shared/Loading";
 import { Button } from "@/components/ui/button";
 import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
   Table,
   TableBody,
   TableCell,
@@ -10,6 +20,8 @@ import {
 } from "@/components/ui/table";
 import AxiosSecure from "@/Hooks/AxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { toast } from "sonner";
 
 type parcelType = {
   _id: string;
@@ -17,11 +29,24 @@ type parcelType = {
   cost: number;
   createdAt: string;
   receiverDivision: string;
+  senderDivision: string;
+};
+type riderType = {
+  _id: string;
+  name: string;
+  number: string;
+  license: string;
+  email: string;
 };
 
 const Assignparcels = () => {
+  const [selectedParcel, setParcel] = useState<parcelType | null>(null);
   const axiosSecure = AxiosSecure();
-  const { data: parcels = [], isLoading } = useQuery<parcelType[]>({
+  const {
+    data: parcels = [],
+    isLoading,
+    refetch: parcelRefetch,
+  } = useQuery<parcelType[]>({
     queryKey: ["allParcels", "pending-pickup"],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -31,11 +56,41 @@ const Assignparcels = () => {
     },
   });
 
+  const { data: riders = [], isLoading: isRidersLoading,refetch:riderRefetch } = useQuery<
+    riderType[]
+  >({
+    queryKey: ["riders", selectedParcel?.senderDivision, "available"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(
+        `/ridersInfo?status=approved&division=${selectedParcel?.senderDivision}&workingStatus=available`,
+      );
+      return res.data;
+    },
+    enabled: !!selectedParcel?.senderDivision,
+  });
+
   if (isLoading) return <Loading />;
+
+  const handleAssignRider = (rider: riderType) => {
+    const riderAssignInfo = {
+      riderId: rider?._id,
+      riderEmail: rider?.email,
+      riderName: rider?.name,
+    };
+    axiosSecure
+      .patch(`/parcels/details/${selectedParcel?._id}`, riderAssignInfo)
+      .then((res) => {
+        if (res?.data?.modifiedCount) {
+          toast.success("Assigned Rider Successfully!");
+        }
+        parcelRefetch();
+        riderRefetch();
+      });
+  };
   return (
     <div className="bg-white rounded-2xl px-8 md:px-10 py-6">
       <h1 className="text-[#03373D] text-[30px] lg:text-[45px] font-extrabold">
-        Assign parcels :{parcels.length}
+        Assign parcels
       </h1>
       {parcels.length === 0 ? (
         <div className="mt-8 flex min-h-80 items-center justify-center rounded-3xl border border-dashed border-[#03373D]/20 bg-linear-to-br from-[#F4FBFB] via-white to-[#E8F6F6] px-4 py-10 sm:px-6">
@@ -48,8 +103,8 @@ const Assignparcels = () => {
               No parcel to assign yet
             </h2>
             <p className="mt-3 max-w-sm text-sm leading-6 text-slate-500 sm:text-base">
-              New parcel to assign will appear here. Once someone
-              places order and pays fot it, you can review, and assign rider.
+              New parcel to assign will appear here. Once someone places order
+              and pays fot it, you can review, and assign rider.
             </p>
           </div>
         </div>
@@ -75,7 +130,91 @@ const Assignparcels = () => {
                   <TableCell>{parcel?.createdAt}</TableCell>
                   <TableCell>{parcel?.receiverDivision}</TableCell>
                   <TableCell className="flex gap-5">
-                    <Button variant="secondary">Assign</Button>
+                    <Dialog>
+                      <DialogTrigger
+                        render={
+                          <Button
+                            onClick={() => setParcel(parcel)}
+                            variant="secondary"
+                          >
+                            Assign
+                          </Button>
+                        }
+                      />
+                      <DialogContent className="sm:max-w-md">
+                        <DialogHeader>
+                          <DialogTitle>Available riders</DialogTitle>
+                          <DialogDescription>
+                            Please choose a rider to assign parcel.
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="flex items-center gap-2">
+                          <div className="grid flex-1 gap-2">
+                            {isRidersLoading ? (
+                              <div className="rounded-2xl border border-dashed border-[#03373D]/20 bg-linear-to-br from-[#F4FBFB] via-white to-[#E8F6F6] px-6 py-10 text-center">
+                                <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-[#03373D]/15 border-t-[#0EA5A4]" />
+                                <h3 className="text-lg font-bold text-[#03373D]">
+                                  Loading riders
+                                </h3>
+                                <p className="mt-2 text-sm leading-6 text-slate-500">
+                                  Fetching available riders for{" "}
+                                  {selectedParcel?.senderDivision}.
+                                </p>
+                              </div>
+                            ) : riders.length === 0 ? (
+                              <div className="rounded-2xl border border-dashed border-[#03373D]/20 bg-linear-to-br from-[#F4FBFB] via-white to-[#E8F6F6] px-6 py-10 text-center">
+                                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#03373D]/8">
+                                  <div className="h-7 w-7 rounded-full border-2 border-[#0EA5A4]" />
+                                </div>
+                                <h3 className="text-lg font-bold text-[#03373D]">
+                                  No rider available
+                                </h3>
+                                <p className="mt-2 text-sm leading-6 text-slate-500">
+                                  No active rider found in{" "}
+                                  {selectedParcel?.senderDivision}. Try again
+                                  later or assign parcel from another zone.
+                                </p>
+                              </div>
+                            ) : (
+                              <Table>
+                                <TableHeader>
+                                  <TableRow>
+                                    <TableHead>No.</TableHead>
+                                    <TableHead>Name</TableHead>
+                                    <TableHead>Email</TableHead>
+                                    <TableHead>Action</TableHead>
+                                  </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                  {riders.map((rider, i) => (
+                                    <TableRow key={rider?._id}>
+                                      <TableCell>{i + 1}</TableCell>
+                                      <TableCell>{rider?.name}</TableCell>
+                                      <TableCell>{rider?.email}</TableCell>
+                                      <TableCell className="flex gap-5">
+                                        <Button
+                                          onClick={() =>
+                                            handleAssignRider(rider)
+                                          }
+                                          variant="secondary"
+                                        >
+                                          Assign
+                                        </Button>
+                                      </TableCell>
+                                    </TableRow>
+                                  ))}
+                                </TableBody>
+                              </Table>
+                            )}
+                          </div>
+                        </div>
+                        <DialogFooter className="sm:justify-start">
+                          <DialogClose
+                            render={<Button type="button">Close</Button>}
+                          />
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
                   </TableCell>
                 </TableRow>
               ))}
