@@ -107,18 +107,30 @@ const Order = () => {
                 <TableCell>{parcel?.parcelName}</TableCell>
                 <TableCell>{parcel?.cost}</TableCell>
                 <TableCell>
-                  {parcel.paymentStatus === "paid" ? (
+                  {parcel?.paymentStatus === "paid" ? (
                     <span className="text-green-400">Paid</span>
                   ) : (
                     <Button
-                      onClick={() => navigate(`/dashboard/payment/${parcel._id}`)}
+                      onClick={() =>
+                        navigate(`/dashboard/payment/${parcel._id}`)
+                      }
                       variant="secondary"
                     >
                       Pay now
                     </Button>
                   )}
                 </TableCell>
-                <TableCell>{parcel?.deliveryStatus}</TableCell>
+                <TableCell>
+                  {parcel?.deliveryStatus === "pending-pickup" ? (
+                    <span className="text-red-400">Pending Pickup</span>
+                  ) : parcel?.deliveryStatus === "assigned" ? (
+                    <span className="text-yellow-400">Assigned</span>
+                  ) : parcel?.deliveryStatus === "delivered" ? (
+                    <span className="text-green-400">Delivered</span>
+                  ) : (
+                    ""
+                  )}
+                </TableCell>
                 <TableCell className="flex gap-5">
                   <Button onClick={() => handleView(parcel._id)}>View</Button>
                   <Button variant="outline">Edit</Button>

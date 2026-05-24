@@ -232,20 +232,6 @@
     transform: scale(1.02);
   }
 
-  [data-slot="table-container"] {
-    border-radius: 1.25rem;
-    overflow: hidden;
-    box-shadow: 0 14px 34px -28px rgba(3, 55, 61, 0.35);
-  }
-
-  [data-slot="table-body"] tr {
-    transition: background-color 180ms ease, transform 180ms ease;
-  }
-
-  [data-slot="table-body"] tr:hover {
-    background-color: rgba(234, 246, 216, 0.55);
-  }
-
   [data-slot="sidebar-wrapper"],
   [data-slot="sidebar-inset"] {
     animation: fade-up 0.45s ease-out;

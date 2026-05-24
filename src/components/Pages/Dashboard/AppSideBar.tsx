@@ -2,6 +2,7 @@ import {
   BookCheck,
   History,
   HomeIcon,
+  Motorbike,
   PackageIcon,
   ShoppingCart,
   UserCog,
@@ -52,6 +53,12 @@ const adminItems = [
     url: "/dashboard/rider-approve",
     icon: BookCheck,
   },
+  {
+    title: "Assign Riders",
+    url: "/dashboard/assign-riders",
+    icon: Motorbike,
+  },
+  
 ];
 
 const superAdminItems = [
@@ -59,6 +66,11 @@ const superAdminItems = [
     title: "Approve Riders",
     url: "/dashboard/rider-approve",
     icon: BookCheck,
+  },
+  {
+    title: "Assign Riders",
+    url: "/dashboard/assign-riders",
+    icon: Motorbike,
   },
   {
     title: "User Management",
