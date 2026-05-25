@@ -25,6 +25,8 @@ import AssignRiders from "./Pages/Admin/AssignRiders";
 import AssignedDeliveries from "./Pages/Rider/AssignedDeliveries";
 import RiderRoutes from "./Pages/Rider/RiderRoutes";
 import Forbidden from "./Shared/Forbidden";
+import Deliveries from "./Pages/Rider/Deliveries";
+import Completed from "./Pages/Rider/Completed";
 
 export const router = createBrowserRouter([
   {
@@ -92,27 +94,27 @@ export const router = createBrowserRouter([
         Component: SendParcel,
       },
       {
-        path:"parcelDetail/:id",
-        Component:ParcelDetails
+        path: "parcelDetail/:id",
+        Component: ParcelDetails,
       },
       {
-        path:"payment/:id",
-        Component:Payment
+        path: "payment/:id",
+        Component: Payment,
       },
       {
-        path:"payment-success",
-        Component:PaymentSuccess
+        path: "payment-success",
+        Component: PaymentSuccess,
       },
       {
-        path:"payment-cancelled",
-        Component:PaymentCancel
+        path: "payment-cancelled",
+        Component: PaymentCancel,
       },
       {
-        path:"payment-history",
-        Component:PaymentHistory
+        path: "payment-history",
+        Component: PaymentHistory,
       },
       {
-        path:"rider-approve",
+        path: "rider-approve",
         element: (
           <AdminRoute>
             <RiderApprove />
@@ -120,7 +122,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path:"assign-riders",
+        path: "assign-riders",
         element: (
           <AdminRoute>
             <AssignRiders />
@@ -128,7 +130,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path:"user-management",
+        path: "user-management",
         element: (
           <SuperAdminRoute>
             <UserManagement />
@@ -136,13 +138,29 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path:"assigned-deliveries",
+        path: "assigned-deliveries",
         element: (
           <RiderRoutes>
             <AssignedDeliveries />
           </RiderRoutes>
         ),
-      }
+      },
+      {
+        path: "deliveries",
+        element: (
+          <RiderRoutes>
+            <Deliveries />
+          </RiderRoutes>
+        ),
+      },
+      {
+        path: "completed-deliveries",
+        element: (
+          <RiderRoutes>
+            <Completed />
+          </RiderRoutes>
+        ),
+      },
     ],
   },
 ]);

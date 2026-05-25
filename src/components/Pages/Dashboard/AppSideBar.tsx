@@ -1,11 +1,13 @@
 import {
   BookCheck,
+  CalendarCheck,
   History,
   HomeIcon,
   Motorbike,
   PackageIcon,
   ShoppingCart,
   UserCog,
+  Van,
 } from "lucide-react";
 import { NavLink, useLocation } from "react-router";
 import logo from "../../../../Resources/assets/logo.png";
@@ -54,6 +56,16 @@ const riderItems = [
     url: "/dashboard/assigned-deliveries",
     icon: BookCheck,
   },
+  {
+    title:"Deliveries",
+    url:"/dashboard/deliveries",
+    icon:Van
+  },
+  {
+    title:"Completed Deliveries",
+    url:"/dashboard/completed-deliveries",
+    icon:CalendarCheck
+  }
 ];
 
 const adminItems = [
