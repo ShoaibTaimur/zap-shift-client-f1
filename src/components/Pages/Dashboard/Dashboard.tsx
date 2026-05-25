@@ -21,26 +21,26 @@ const Dashboard = () => {
     <div className="page-shell w-full">
       <SidebarProvider>
         <AppSideBar />
-        <SidebarInset>
+        <SidebarInset className="bg-transparent shadow-none">
           <div
-            className="glass-surface flex items-center justify-between border-b px-4 py-3 text-[#03373D] md:px-6"
+            className="glass-surface mb-3 flex items-center justify-between rounded-2xl border border-[#DCEAE8] bg-white px-4 py-3 text-[#03373D] md:px-6"
             style={{
               backgroundColor: "#FFFFFF",
-              borderColor: "#E5E7EB",
+              borderColor: "#DCEAE8",
             }}
           >
-            <SidebarTrigger className="text-[#03373D] hover:bg-[#EAF6D8] hover:text-[#03373D]" />
+            <SidebarTrigger className="rounded-xl text-[#03373D] hover:bg-[#EAF6D8] hover:text-[#03373D]" />
             <div className="flex items-center gap-3">
               <Button onClick={() => logout?.()} variant="destructive">
                 Sign out
               </Button>
-              <Avatar className="size-10 border border-[#E5E7EB]">
+              <Avatar className="size-10 border border-[#DCEAE8] shadow-sm">
                 <AvatarImage src={photo} alt={user?.displayName || "User"} />
                 <AvatarFallback>{fallback}</AvatarFallback>
               </Avatar>
             </div>
           </div>
-          <div className="page-shell flex-1 bg-gray-100 p-4 md:p-6">
+          <div className="page-shell flex-1 bg-transparent p-0">
             <Outlet />
           </div>
         </SidebarInset>

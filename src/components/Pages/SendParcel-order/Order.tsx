@@ -68,12 +68,12 @@ const Order = () => {
     });
   };
   return (
-    <div className="bg-white rounded-2xl px-8 md:px-10 py-6">
-      <h1 className="text-[#03373D] text-[30px] lg:text-[45px] font-extrabold">
+    <div className="panel-card">
+      <h1 className="panel-title">
         My Orders
       </h1>
       {parcels.length === 0 ? (
-        <div className="mt-8 flex min-h-80 items-center justify-center rounded-3xl border border-dashed border-[#03373D]/20 bg-linear-to-br from-[#F4FBFB] via-white to-[#E8F6F6] px-4 py-10 sm:px-6">
+        <div className="empty-state-shell">
           <div className="flex w-full max-w-md flex-col items-center text-center">
             <div className="relative mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-[#03373D]/8 sm:h-24 sm:w-24">
               <div className="absolute h-14 w-14 rounded-full border border-[#03373D]/15 bg-white sm:h-16 sm:w-16" />
@@ -89,6 +89,7 @@ const Order = () => {
           </div>
         </div>
       ) : (
+        <div className="data-table-shell">
         <Table>
           <TableHeader>
             <TableRow>
@@ -162,6 +163,7 @@ const Order = () => {
             ))}
           </TableBody>
         </Table>
+        </div>
       )}
     </div>
   );

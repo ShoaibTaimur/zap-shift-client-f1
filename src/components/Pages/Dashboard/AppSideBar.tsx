@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/sidebar";
 import SidebarLoading from "@/components/Shared/SidebarLoading";
 import UseRole from "@/Hooks/UseRole";
+import { cn } from "@/lib/utils";
 
 const commonItems = [
   {
@@ -149,9 +150,16 @@ const AppSideBar = () => {
           </a>
         )}
       </SidebarHeader>
-      <SidebarContent className="bg-sidebar">
-        <SidebarGroup>
-          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+      <SidebarContent
+        className={cn(
+          "bg-sidebar py-2",
+          state === "collapsed" ? "px-0" : "px-2",
+        )}
+      >
+        <SidebarGroup className={state === "collapsed" ? "px-1" : undefined}>
+          <SidebarGroupLabel className="px-3 text-xs font-semibold uppercase tracking-[0.18em] text-sidebar-foreground/55">
+            Navigation
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
@@ -159,6 +167,10 @@ const AppSideBar = () => {
                   <SidebarMenuButton
                     isActive={pathname === item.url}
                     tooltip={item.title}
+                    className={cn(
+                      "rounded-xl",
+                      state === "collapsed" && "mx-auto justify-center",
+                    )}
                     render={
                       <NavLink to={item.url} end={item.url === "/dashboard"} />
                     }

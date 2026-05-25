@@ -28,13 +28,13 @@ const Reviews = ({ reviewPromise }: reviewProps) => {
   const reviewsData = use(reviewPromise);
 
   return (
-    <div className="my-12 md:my-25 mx-5 md:mx-15">
-      <div className="flex flex-col items-center mb-8">
-        <img className="mb-8" src={customerTop} alt="" />
-        <h1 className="text-[25px] md:text-[32px] font-bold text-[#03373D] text-center mb-3">
+    <div className="site-section bg-[#F7FBFB]">
+      <div className="mb-6 flex flex-col items-center text-center md:mb-8">
+        <img className="mb-4 w-20 md:w-28" src={customerTop} alt="" />
+        <h1 className="section-title mb-2.5">
           What our customers are sayings
         </h1>
-        <p className="text-[#606060] text-[14px] md:text-[16px] w-[90%] md:w-[70%] text-center">
+        <p className="section-copy max-w-2xl">
           Enhance posture, mobility, and well-being effortlessly with Posture
           Pro. Achieve proper alignment, reduce pain, and strengthen your body
           with ease!
@@ -45,13 +45,21 @@ const Reviews = ({ reviewPromise }: reviewProps) => {
           effect={"coverflow"}
           grabCursor={true}
           centeredSlides={true}
-          slidesPerView={2}
+          slidesPerView={1}
           coverflowEffect={{
-            rotate: 50,
+            rotate: 18,
             stretch: 0,
-            depth: 100,
+            depth: 90,
             modifier: 1,
-            slideShadows: true,
+            slideShadows: false,
+          }}
+          breakpoints={{
+            768: {
+              slidesPerView: 1.2,
+            },
+            1280: {
+              slidesPerView: 1.7,
+            },
           }}
           autoplay={{
             delay: 2500,
