@@ -51,14 +51,6 @@ const Navbar5 = ({ className }: Navbar5Props) => {
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  href="#"
-                  className={navigationMenuTriggerStyle()}
-                >
-                  <span className="text-[#606060]">Services</span>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink
                   href="/coverage"
                   className={navigationMenuTriggerStyle()}
                 >
@@ -71,14 +63,6 @@ const Navbar5 = ({ className }: Navbar5Props) => {
                   className={navigationMenuTriggerStyle()}
                 >
                   <span className="text-[#606060]">About Us</span>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  href="#"
-                  className={navigationMenuTriggerStyle()}
-                >
-                  <span className="text-[#606060]">Pricing</span>
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
