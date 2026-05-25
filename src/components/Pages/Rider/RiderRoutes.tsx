@@ -4,7 +4,7 @@ import UseRole from "@/Hooks/UseRole";
 import { useContext, type ReactNode } from "react";
 import { Navigate, useLocation } from "react-router";
 
-const AdminRoute = ({ children }: { children: ReactNode }) => {
+const RiderRoutes = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
   const info = useContext(AuthContext);
   const user = info?.user;
@@ -33,15 +33,15 @@ const AdminRoute = ({ children }: { children: ReactNode }) => {
     return <Navigate state={location.pathname} to="/auth" />;
   }
 
-  if (role !== "admin" && role !== "super_admin") {
+  if (role !== "rider") {
     return (
       <Navigate
         to="/forbidden"
         replace
         state={{
           from: location.pathname,
-          title: "Admin cave locked.",
-          message: "Admin or super admin badge needed here. Your badge says no.",
+          title: "Rider lane only.",
+          message: "Dispatch board reserved for riders. Current role cannot grab these deliveries.",
         }}
       />
     );
@@ -50,4 +50,4 @@ const AdminRoute = ({ children }: { children: ReactNode }) => {
   return children;
 };
 
-export default AdminRoute;
+export default RiderRoutes;

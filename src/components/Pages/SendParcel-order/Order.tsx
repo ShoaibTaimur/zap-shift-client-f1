@@ -124,11 +124,11 @@ const Order = () => {
                   {parcel?.deliveryStatus === "pending-pickup" ? (
                     <span className="text-red-400">Pending Pickup</span>
                   ) : parcel?.deliveryStatus === "in_delivery" ? (
-                    <span className="text-yellow-400">Assigned</span>
+                    <span className="text-orange-400">Approval pending</span>
                   ) : parcel?.deliveryStatus === "delivered" ? (
                     <span className="text-green-400">Delivered</span>
                   ) : (
-                    ""
+                    <span className="text-yellow-400">Rider Assigned</span>
                   )}
                 </TableCell>
                 <TableCell className="flex gap-5">

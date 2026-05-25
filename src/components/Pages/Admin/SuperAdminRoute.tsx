@@ -34,7 +34,17 @@ const SuperAdminRoute = ({ children }: { children: ReactNode }) => {
   }
 
   if (role !== "super_admin") {
-    return <Navigate to="/dashboard" replace />;
+    return (
+      <Navigate
+        to="/forbidden"
+        replace
+        state={{
+          from: location.pathname,
+          title: "Super admin throne guarded.",
+          message: "Only super admin can touch this room. Everyone else gets bonked.",
+        }}
+      />
+    );
   }
 
   return children;

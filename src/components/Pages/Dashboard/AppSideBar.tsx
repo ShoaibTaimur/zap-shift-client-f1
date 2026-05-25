@@ -22,8 +22,8 @@ import {
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
+import SidebarLoading from "@/components/Shared/SidebarLoading";
 import UseRole from "@/Hooks/UseRole";
-import Loading from "@/components/Shared/Loading";
 
 const commonItems = [
   {
@@ -47,6 +47,15 @@ const commonItems = [
     icon: History,
   },
 ];
+
+const riderItems = [
+  {
+    title: "Assigned Deliveries",
+    url: "/dashboard/assigned-deliveries",
+    icon: BookCheck,
+  },
+];
+
 const adminItems = [
   {
     title: "Approve Riders",
@@ -58,7 +67,6 @@ const adminItems = [
     url: "/dashboard/assign-riders",
     icon: Motorbike,
   },
-  
 ];
 
 const superAdminItems = [
@@ -89,9 +97,11 @@ const AppSideBar = () => {
       ? [...commonItems, ...superAdminItems]
       : role === "admin"
         ? [...commonItems, ...adminItems]
-        : commonItems;
+        : role === "rider"
+          ? [...commonItems, ...riderItems]
+          : commonItems;
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <SidebarLoading />;
 
   return (
     <Sidebar

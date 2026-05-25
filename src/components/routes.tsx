@@ -22,6 +22,9 @@ import UserManagement from "./Pages/Admin/UserManagement";
 import AdminRoute from "./Pages/Admin/AdminRoute";
 import SuperAdminRoute from "./Pages/Admin/SuperAdminRoute";
 import AssignRiders from "./Pages/Admin/AssignRiders";
+import AssignedDeliveries from "./Pages/Rider/AssignedDeliveries";
+import RiderRoutes from "./Pages/Rider/RiderRoutes";
+import Forbidden from "./Shared/Forbidden";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +42,10 @@ export const router = createBrowserRouter([
       {
         path: "/error",
         Component: Error,
+      },
+      {
+        path: "/forbidden",
+        Component: Forbidden,
       },
       {
         path: "/about-us",
@@ -126,6 +133,14 @@ export const router = createBrowserRouter([
           <SuperAdminRoute>
             <UserManagement />
           </SuperAdminRoute>
+        ),
+      },
+      {
+        path:"assigned-deliveries",
+        element: (
+          <RiderRoutes>
+            <AssignedDeliveries />
+          </RiderRoutes>
         ),
       }
     ],

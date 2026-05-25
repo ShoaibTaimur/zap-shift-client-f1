@@ -36,7 +36,7 @@ const Payment = () => {
     enabled: !!id,
   });
   if (isLoading) return <Loading />;
-  if (!details) return <Loading />;
+  if (!details) return null;
 
   const handlePayment=async()=>{
     const paymentInfo={
