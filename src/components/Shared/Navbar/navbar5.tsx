@@ -146,17 +146,11 @@ const Navbar5 = ({ className }: Navbar5Props) => {
               <div className="flex flex-col p-4">
                 <Accordion className="mt-4 mb-2"></Accordion>
                 <div className="flex flex-col gap-6">
-                  <a href="#" className="font-medium">
-                    Services
-                  </a>
                   <a href="/coverage" className="font-medium">
                     Coverage
                   </a>
                   <a href="/about-us" className="font-medium">
                     About Us
-                  </a>
-                  <a href="#" className="font-medium">
-                    Pricing
                   </a>
                   <a href="/rider" className="font-medium">
                     Be a rider
